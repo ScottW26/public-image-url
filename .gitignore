@@ -1,0 +1,7 @@
+# Real candidate data NEVER goes in this public repo.
+# Drop your per_candidate.json here and load it in the browser instead.
+bench.local.json
+*.local.json
+per_candidate.json
+**/wr-decoder*
+*.decoder.*

@@ -1,0 +1,134 @@
+{
+  "threshold": 70,
+  "note": "ANONYMISED SAMPLE — no real candidate data. Mirrors the per_candidate.json schema so a real bench export slots straight in. Real bench loads locally via 'Load my bench' and is never committed.",
+  "candidates": [
+    {
+      "candidateId": "cand-2026-201",
+      "name": "CAND-2026-201",
+      "geography": "Illinois",
+      "primarySector": "Snacks",
+      "sectorTags": ["Snacks", "CPG", "Better-for-you"],
+      "seniority": "C-suite",
+      "status": "active",
+      "targetRoles": ["President", "GM", "Chief Commercial Officer", "VP Sales"],
+      "anchorSkills": ["National retail account leadership", "P&L ownership", "Brand turnaround", "Margin discipline", "Org build-out"],
+      "scaleHandled": "Ran a $180M better-for-you snacking P&L across club, grocery and mass; rebuilt the commercial org.",
+      "anonRef": "Snacks C-suite leader, 25+ yrs, who scaled a national better-for-you brand across club and mass with full P&L ownership and a rebuilt commercial team.",
+      "pitchHooks": [
+        "Grew a national snacking brand from $90M to $180M in four years across club and mass",
+        "Rebuilt a 40-person commercial org and lifted gross margin 600bps",
+        "Landed and scaled top-3 club and mass accounts from a standing start"
+      ],
+      "matches": [
+        { "pct": 86, "title": "President, Snacking", "company": "Harvest Snack Co.", "location": "Chicago, IL", "source": "linkedin", "geoStatus": "in", "postedAt": "2026-06-15T00:00:00.000Z", "industries": "Food & Beverage" },
+        { "pct": 78, "title": "Chief Commercial Officer", "company": "Prairie Better Foods", "location": "Naperville, IL", "source": "linkedin", "geoStatus": "in", "postedAt": "2026-06-12T00:00:00.000Z", "industries": "Manufacturing" },
+        { "pct": 72, "title": "VP Sales, Mass & Club", "company": "Summit Nutrition", "location": "Remote", "source": "indeed", "geoStatus": "national", "postedAt": "2026-06-09T00:00:00.000Z", "industries": "Food Production" }
+      ]
+    },
+    {
+      "candidateId": "cand-2026-202",
+      "name": "CAND-2026-202",
+      "geography": "Texas",
+      "primarySector": "Beverages",
+      "sectorTags": ["Beverages", "Functional", "DSD"],
+      "seniority": "VP",
+      "status": "active",
+      "targetRoles": ["VP Sales", "VP Commercial", "National Sales Director"],
+      "anchorSkills": ["DSD network management", "Distributor partnerships", "National account leadership", "Trade spend optimisation"],
+      "scaleHandled": "Led $120M of functional-beverage sales through a 200+ distributor DSD network.",
+      "anonRef": "Beverages VP with deep DSD and distributor expertise, having led $120M of functional-drink sales across a 200+ distributor network nationally.",
+      "pitchHooks": [
+        "Built a 200+ distributor DSD network for a functional beverage brand",
+        "Delivered three consecutive years of double-digit volume growth",
+        "Cut trade spend 15% while growing velocity"
+      ],
+      "matches": [
+        { "pct": 81, "title": "VP Sales", "company": "Lone Star Beverage", "location": "Austin, TX", "source": "linkedin", "geoStatus": "in", "postedAt": "2026-06-16T00:00:00.000Z", "industries": "Food & Beverage" },
+        { "pct": 74, "title": "National Sales Director", "company": "Vital Drinks", "location": "Dallas, TX", "source": "indeed", "geoStatus": "in", "postedAt": "2026-06-10T00:00:00.000Z", "industries": "Beverage Manufacturing" }
+      ]
+    },
+    {
+      "candidateId": "cand-2026-203",
+      "name": "CAND-2026-203",
+      "geography": "Pennsylvania",
+      "primarySector": "Bakery",
+      "sectorTags": ["Bakery", "Co-manufacturing", "Private label"],
+      "seniority": "SVP",
+      "status": "active",
+      "targetRoles": ["SVP Operations", "VP Manufacturing", "COO"],
+      "anchorSkills": ["Multi-site manufacturing", "Lean / continuous improvement", "Capex planning", "Food safety / SQF", "Private label"],
+      "scaleHandled": "Ran 6 bakery plants, 1,400 staff, $300M cost base; led two greenfield builds.",
+      "anonRef": "Bakery SVP Operations who ran six plants and a $300M cost base, with two greenfield builds and a strong lean and food-safety record.",
+      "pitchHooks": [
+        "Led six bakery plants and 1,400 staff across a $300M cost base",
+        "Delivered two greenfield builds on time and under budget",
+        "Drove OEE from 62% to 81% across the network"
+      ],
+      "matches": [
+        { "pct": 83, "title": "VP Manufacturing", "company": "Keystone Baking", "location": "Philadelphia, PA", "source": "linkedin", "geoStatus": "in", "postedAt": "2026-06-14T00:00:00.000Z", "industries": "Food Production" }
+      ]
+    },
+    {
+      "candidateId": "cand-2026-204",
+      "name": "CAND-2026-204",
+      "geography": "California",
+      "primarySector": "Produce",
+      "sectorTags": ["Produce", "Fresh", "Retail grocery"],
+      "seniority": "VP",
+      "status": "active",
+      "targetRoles": ["VP Sales", "VP Category", "GM"],
+      "anchorSkills": ["Retail category leadership", "Grower relationships", "Cold chain", "Merchandising"],
+      "scaleHandled": "Managed $90M of fresh produce sales into top national grocers.",
+      "anonRef": "Fresh produce VP with strong national grocery category relationships and $90M of sales across a complex cold-chain supply base.",
+      "pitchHooks": [
+        "Managed $90M of fresh produce into top-5 national grocers",
+        "Won category captaincy at two national retailers",
+        "Built direct grower partnerships cutting spoilage 20%"
+      ],
+      "matches": [
+        { "pct": 79, "title": "VP Category, Fresh", "company": "Pacific Greens", "location": "Salinas, CA", "source": "linkedin", "geoStatus": "in", "postedAt": "2026-06-13T00:00:00.000Z", "industries": "Food Production" },
+        { "pct": 71, "title": "GM, West", "company": "Sunvalley Produce", "location": "Fresno, CA", "source": "indeed", "geoStatus": "in", "postedAt": "2026-06-08T00:00:00.000Z", "industries": "Farming" }
+      ]
+    },
+    {
+      "candidateId": "cand-2026-205",
+      "name": "CAND-2026-205",
+      "geography": "Georgia",
+      "primarySector": "Foodservice",
+      "sectorTags": ["Foodservice", "Broadline", "Protein"],
+      "seniority": "Director",
+      "status": "active",
+      "targetRoles": ["Director Sales", "Regional Sales Director", "VP Foodservice Sales"],
+      "anchorSkills": ["Broadline distributor sales", "Operator relationships", "Menu development support", "Margin management"],
+      "scaleHandled": "Drove $60M of foodservice protein sales through Sysco and US Foods in the Southeast.",
+      "anonRef": "Foodservice sales Director with deep Sysco and US Foods relationships, having driven $60M of protein sales across the Southeast.",
+      "pitchHooks": [
+        "Drove $60M of foodservice protein through Sysco and US Foods",
+        "Added 40+ regional operator accounts in two years",
+        "Built a broadline rebate programme that lifted margin 3 points"
+      ],
+      "matches": [
+        { "pct": 76, "title": "Regional Sales Director, Southeast", "company": "Peachtree Foods", "location": "Atlanta, GA", "source": "linkedin", "geoStatus": "in", "postedAt": "2026-06-11T00:00:00.000Z", "industries": "Food & Beverage" }
+      ]
+    },
+    {
+      "candidateId": "cand-2026-206",
+      "name": "CAND-2026-206",
+      "geography": "Canada",
+      "primarySector": "Confectionery",
+      "sectorTags": ["Confectionery", "CPG"],
+      "seniority": "C-suite",
+      "status": "parked",
+      "targetRoles": ["President", "GM", "Chief Commercial Officer"],
+      "anchorSkills": ["P&L ownership", "International expansion", "M&A integration"],
+      "scaleHandled": "Led a $250M confectionery business across North America.",
+      "anonRef": "Confectionery C-suite leader with full P&L ownership of a $250M North American business and a strong M&A integration record.",
+      "pitchHooks": [
+        "Led a $250M North American confectionery P&L",
+        "Integrated two acquisitions inside 18 months",
+        "Opened a US route-to-market from a Canadian base"
+      ],
+      "matches": []
+    }
+  ]
+}

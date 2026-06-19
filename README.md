@@ -1,52 +1,70 @@
-# Shelf — a candidate-first ATS/CRM
+# Shelf — a candidate-first bench tool
 
-> The candidate is the product. Everything else is noise.
+> The candidate is the product. The bench is the shelf. The system specs them out.
 
-A prototype recruitment system built on one inversion: instead of starting
-with a **job** and hunting for people, you start with a **candidate** and
-the system constantly *specs them out* to employers — whether or not those
-employers have a live vacancy.
+A lean recruitment tool built on one inversion: you don't start with a job and
+hunt for people. You start with your **bench** of candidates and the system
+constantly **specs them out** to employers — using live job matches as the
+targets. No 10,000 contacts, no CRM bloat. Just the product and the act of selling it.
+
+Built for [Williams Recruitment](https://williams-recruitment.com) — food & CPG executive search.
 
 ## How to run
 
-Open `index.html` in any browser. That's it — no install, no server.
-Your data is saved in the browser (localStorage), so it persists between visits.
+Because the app loads a JSON file, run it over a local web server (browsers block
+`file://` fetches):
 
-To start fresh with the demo data: open the browser console and run
-`localStorage.removeItem('shelf.v1')`, then reload.
+```bash
+cd public-image-url
+python3 -m http.server 8000
+# then open http://localhost:8000
+```
 
-## The model
+Out of the box it shows an **anonymised sample bench**. To use your real bench,
+click **Load my bench** (top right) and pick your `per_candidate.json`.
 
-| Object | Role |
+## 🔒 Privacy — read this
+
+This repo is **public**, so it contains **no real candidate data**, ever.
+
+- The committed `bench.sample.json` is fully anonymised (CAND codes, like your
+  bench register).
+- **Load my bench** reads your `per_candidate.json` *in your browser only*
+  (via `FileReader`). It is never uploaded, never sent to a server, and never
+  committed. It persists in that browser's `localStorage` on your machine.
+- `.gitignore` blocks `per_candidate.json`, `*.local.json` and any decoder files
+  from ever being committed by accident.
+- Outbound pitches use the **anon spec** (`anonRef`) only — no name, no current
+  employer. Real identity stays in your decoder, exactly as your engine does it.
+
+## The model (matches your `per_candidate.json` schema)
+
+| Field | Used as |
 |---|---|
-| **Candidate** | The product. The central record — everything hangs off it. |
-| **Spec-out** | The core action: marketing one candidate to one employer. Replaces "application". |
-| **Employer** | A buyer in *The Market*. A target, not the starting point. |
-| **Response** | Did they bite? sent → opened → interested → interview → placed. |
+| `name` / `candidateId` | The product (real name shown only in your local browser) |
+| `anonRef` | The spec-out blurb — what goes out to employers |
+| `pitchHooks` | The selling points dropped into each pitch |
+| `targetRoles`, `anchorSkills`, `scaleHandled` | The spec sheet |
+| `matches[]` | **Live targets** — open roles your engine matched. Each is a spec-out waiting to happen |
+| `primarySector`, `geography`, `seniority`, `status` | Board sorting + filters |
 
-## The three screens
+## The two screens
 
-1. **The Shelf** — your candidates, each shown as a product that's actively
-   being sold: live spec-outs, response rate, and the single *next action*.
-2. **Candidate detail** — the spec sheet (the product page) + the
-   **spec-out engine** (fresh employers to pitch, ranked by fit) + a timeline
-   of every time they've been put in front of someone.
-3. **The Market** — the buyers. Kept deliberately thin.
-
-## The design rule
-
-If a feature doesn't help you market a candidate or close a placement,
-it doesn't get built. That's why there's no job-req workflow, no compliance
-module, no owner dashboards — that's the "noise" this is a reaction to.
+1. **The Bench** — your candidates as products, ranked by who's *closest to a
+   spec-out* (best live match first). Filter by sector / status, search anything.
+2. **Candidate** — the spec sheet (anon spec + pitch hooks + anchors) next to the
+   **spec-out engine** (the live matched roles) and a **spec-out log** that tracks
+   each pitch: sent → opened → interested → call → placed.
 
 ## Where this goes next
 
-This is a clickable prototype to pressure-test the concept. The natural
-next step is to wire the spec-out engine to live tools:
+This prototype reads a static export. The natural next step is to close the loop
+with the tools already in your stack:
 
-- **Vibe Prospecting / Indeed** → auto-find and enrich target employers for each candidate
-- **Gmail** → send the generated pitch and track opens/replies as spec-out status
-- **Atlas** → import existing candidate data
-- **Calendar** → book the interviews that come back
-
-— built for Williams Recruitment.
+- **Your `wr-candidate-engine`** writes `per_candidate.json` → Shelf reads it (today,
+  manual; next, automatic).
+- **Indeed / job sources** → the `matches[]` already come from live postings.
+- **Gmail** → send the generated pitch and pull replies back as spec-out status,
+  instead of logging by hand.
+- **The engine ledger (`engine.sqlite`)** → the spec-out log could read/write the
+  real system of record instead of browser storage.

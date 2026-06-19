@@ -3,163 +3,120 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Shelf — candidate-first recruitment</title>
+<title>Shelf — candidate-first bench</title>
 <style>
   :root {
-    --bg: #0e1116;
-    --panel: #171b22;
-    --panel-2: #1e242d;
-    --line: #2a323d;
-    --text: #e7ecf3;
-    --muted: #8b97a7;
-    --accent: #4f9dff;
-    --accent-dim: #1f3a5f;
-    --good: #38c172;
-    --warm: #f6b73c;
-    --hot: #ff6b6b;
-    --radius: 12px;
+    --bg:#0e1116; --panel:#171b22; --panel-2:#1e242d; --line:#2a323d;
+    --text:#e7ecf3; --muted:#8b97a7; --accent:#4f9dff; --accent-dim:#1f3a5f;
+    --good:#38c172; --warm:#f6b73c; --hot:#ff6b6b; --radius:12px;
   }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    -webkit-font-smoothing: antialiased;
-  }
-  a { color: var(--accent); text-decoration: none; }
-  button { font-family: inherit; cursor: pointer; }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+  a{color:var(--accent);text-decoration:none}
+  button{font-family:inherit;cursor:pointer}
 
-  /* ---------- Top bar ---------- */
-  header.topbar {
-    display: flex; align-items: center; gap: 18px;
-    padding: 14px 26px;
-    border-bottom: 1px solid var(--line);
-    background: var(--panel);
-    position: sticky; top: 0; z-index: 20;
-  }
-  .brand { font-weight: 800; font-size: 19px; letter-spacing: -0.3px; }
-  .brand span { color: var(--accent); }
-  .tagline { color: var(--muted); font-size: 12.5px; margin-left: -8px; }
-  .topbar nav { display: flex; gap: 4px; margin-left: 18px; }
-  .topbar nav button {
-    background: none; border: none; color: var(--muted);
-    padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 600;
-  }
-  .topbar nav button.active { background: var(--panel-2); color: var(--text); }
-  .topbar nav button:hover { color: var(--text); }
-  .spacer { flex: 1; }
-  .btn {
-    background: var(--accent); color: #fff; border: none;
-    padding: 9px 16px; border-radius: 8px; font-weight: 700; font-size: 14px;
-  }
-  .btn:hover { filter: brightness(1.08); }
-  .btn.ghost { background: var(--panel-2); color: var(--text); border: 1px solid var(--line); }
-  .btn.sm { padding: 6px 11px; font-size: 13px; }
+  header.topbar{display:flex;align-items:center;gap:14px;padding:14px 26px;border-bottom:1px solid var(--line);background:var(--panel);position:sticky;top:0;z-index:20}
+  .brand{font-weight:800;font-size:19px;letter-spacing:-0.3px}
+  .brand span{color:var(--accent)}
+  .tagline{color:var(--muted);font-size:12.5px;margin-left:-6px}
+  .topbar nav{display:flex;gap:4px;margin-left:16px}
+  .topbar nav button{background:none;border:none;color:var(--muted);padding:8px 14px;border-radius:8px;font-size:14px;font-weight:600}
+  .topbar nav button.active{background:var(--panel-2);color:var(--text)}
+  .topbar nav button:hover{color:var(--text)}
+  .spacer{flex:1}
+  .src{font-size:11.5px;color:var(--muted);display:flex;align-items:center;gap:6px;margin-right:4px}
+  .src .dot{width:7px;height:7px;border-radius:50%;background:var(--warm)}
+  .src.live .dot{background:var(--good)}
+  .btn{background:var(--accent);color:#fff;border:none;padding:9px 16px;border-radius:8px;font-weight:700;font-size:14px}
+  .btn:hover{filter:brightness(1.08)}
+  .btn.ghost{background:var(--panel-2);color:var(--text);border:1px solid var(--line)}
+  .btn.sm{padding:6px 11px;font-size:13px}
 
-  /* ---------- Layout ---------- */
-  main { padding: 24px 26px 80px; max-width: 1200px; margin: 0 auto; }
+  main{padding:24px 26px 80px;max-width:1220px;margin:0 auto}
 
-  /* ---------- Metric strip ---------- */
-  .metrics { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 8px; }
-  .metric {
-    background: var(--panel); border: 1px solid var(--line);
-    border-radius: var(--radius); padding: 14px 16px;
-  }
-  .metric .n { font-size: 26px; font-weight: 800; letter-spacing: -0.5px; }
-  .metric .l { color: var(--muted); font-size: 12px; margin-top: 2px; }
-  .creed { color: var(--muted); font-size: 12.5px; margin: 14px 2px 22px; font-style: italic; }
+  .metrics{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:8px}
+  .metric{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px}
+  .metric .n{font-size:26px;font-weight:800;letter-spacing:-0.5px}
+  .metric .l{color:var(--muted);font-size:12px;margin-top:2px}
+  .creed{color:var(--muted);font-size:12.5px;margin:14px 2px 22px;font-style:italic}
 
-  /* ---------- Candidate board ---------- */
-  .section-head { display: flex; align-items: baseline; gap: 12px; margin: 8px 2px 14px; }
-  .section-head h2 { margin: 0; font-size: 17px; letter-spacing: -0.2px; }
-  .section-head .sub { color: var(--muted); font-size: 13px; }
+  .controls{display:flex;gap:10px;align-items:center;margin:0 2px 16px;flex-wrap:wrap}
+  .controls input[type=text]{background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:8px;padding:8px 12px;font-size:13.5px;width:240px}
+  .controls select{background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:8px;padding:8px 10px;font-size:13.5px}
 
-  .board { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
-  .card {
-    background: var(--panel); border: 1px solid var(--line);
-    border-radius: var(--radius); padding: 16px; cursor: pointer;
-    transition: border-color .12s, transform .12s;
-  }
-  .card:hover { border-color: var(--accent); transform: translateY(-2px); }
-  .card .top { display: flex; justify-content: space-between; align-items: flex-start; }
-  .card .name { font-weight: 800; font-size: 16px; }
-  .card .role { color: var(--muted); font-size: 13.5px; margin-top: 1px; }
-  .card .meta { display: flex; gap: 14px; margin-top: 12px; }
-  .card .meta div .v { font-weight: 700; font-size: 15px; }
-  .card .meta div .k { color: var(--muted); font-size: 11px; }
-  .card .nextline {
-    margin-top: 13px; padding-top: 11px; border-top: 1px solid var(--line);
-    font-size: 12.5px; color: var(--muted); display:flex; align-items:center; gap:7px;
-  }
-  .card .nextline b { color: var(--text); font-weight: 600; }
+  .section-head{display:flex;align-items:baseline;gap:12px;margin:8px 2px 14px}
+  .section-head h2{margin:0;font-size:17px;letter-spacing:-0.2px}
+  .section-head .sub{color:var(--muted);font-size:13px}
 
-  .pill { font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 999px; white-space: nowrap; }
-  .pill.active { background: rgba(56,193,114,.14); color: var(--good); }
-  .pill.paused { background: rgba(139,151,167,.14); color: var(--muted); }
-  .pill.placed { background: rgba(79,157,255,.16); color: var(--accent); }
-  .dot { width:8px; height:8px; border-radius:50%; display:inline-block; }
-  .dot.good{background:var(--good)} .dot.warm{background:var(--warm)} .dot.hot{background:var(--hot)} .dot.cold{background:var(--muted)}
+  .board{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:14px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px;cursor:pointer;transition:border-color .12s,transform .12s}
+  .card:hover{border-color:var(--accent);transform:translateY(-2px)}
+  .card .top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+  .card .name{font-weight:800;font-size:15.5px}
+  .card .role{color:var(--muted);font-size:12.5px;margin-top:1px}
+  .card .ref{font-size:12.5px;color:var(--text);opacity:.85;margin-top:11px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .card .foot{margin-top:13px;padding-top:11px;border-top:1px solid var(--line);display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted)}
+  .card .foot b{color:var(--text)}
 
-  /* ---------- Candidate detail ---------- */
-  .back { background:none; border:none; color:var(--muted); font-size:13px; padding:0; margin-bottom:14px; }
-  .back:hover { color: var(--text); }
-  .detail-grid { display:grid; grid-template-columns: 1.1fr 1fr; gap:18px; align-items:start; }
-  .panel { background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:18px; }
-  .panel h3 { margin:0 0 4px; font-size:15px; }
-  .panel .hint { color:var(--muted); font-size:12.5px; margin:0 0 14px; }
+  .pill{font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;white-space:nowrap}
+  .pill.active{background:rgba(56,193,114,.14);color:var(--good)}
+  .pill.parked{background:rgba(139,151,167,.14);color:var(--muted)}
+  .pill.sec{background:var(--panel-2);color:var(--muted);border:1px solid var(--line)}
+  .matchbadge{font-weight:800;font-size:14px}
+  .m-hot{color:var(--good)} .m-warm{color:var(--warm)} .m-none{color:var(--muted)}
 
-  .cand-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:4px; }
-  .cand-header h1 { margin:0; font-size:24px; letter-spacing:-0.5px; }
-  .cand-sub { color:var(--muted); font-size:14px; margin-bottom:16px; }
-  .specsheet dl { display:grid; grid-template-columns:120px 1fr; gap:8px 14px; margin:0; }
-  .specsheet dt { color:var(--muted); font-size:13px; }
-  .specsheet dd { margin:0; font-size:13.5px; }
-  .tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:4px; }
-  .tag { background:var(--panel-2); border:1px solid var(--line); border-radius:6px; padding:3px 9px; font-size:12px; }
-  .headline { background:var(--panel-2); border-left:3px solid var(--accent); padding:11px 13px; border-radius:6px; font-size:13.5px; line-height:1.5; margin-top:14px; }
+  .back{background:none;border:none;color:var(--muted);font-size:13px;padding:0;margin-bottom:14px}
+  .back:hover{color:var(--text)}
+  .detail-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:18px;align-items:start}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+  .panel h3{margin:0 0 4px;font-size:15px}
+  .panel .hint{color:var(--muted);font-size:12.5px;margin:0 0 14px}
 
-  /* spec-out engine */
-  .target { display:flex; align-items:center; gap:12px; padding:11px 0; border-bottom:1px solid var(--line); }
-  .target:last-child { border-bottom:none; }
-  .target .tinfo { flex:1; }
-  .target .tname { font-weight:700; font-size:14px; }
-  .target .tmeta { color:var(--muted); font-size:12px; }
-  .match { font-size:11px; font-weight:700; padding:2px 8px; border-radius:6px; background:rgba(56,193,114,.12); color:var(--good); }
+  .cand-header{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:3px}
+  .cand-header h1{margin:0;font-size:22px;letter-spacing:-0.5px}
+  .cand-sub{color:var(--muted);font-size:13.5px;margin-bottom:14px}
+  .specsheet dl{display:grid;grid-template-columns:118px 1fr;gap:8px 14px;margin:0}
+  .specsheet dt{color:var(--muted);font-size:12.5px}
+  .specsheet dd{margin:0;font-size:13px}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+  .tag{background:var(--panel-2);border:1px solid var(--line);border-radius:6px;padding:3px 9px;font-size:11.5px}
+  .ref-block{background:var(--panel-2);border-left:3px solid var(--accent);padding:11px 13px;border-radius:6px;font-size:13px;line-height:1.5;margin-top:14px}
+  .hooks{margin:12px 0 0;padding:0;list-style:none}
+  .hooks li{font-size:12.5px;line-height:1.5;padding-left:18px;position:relative;margin-bottom:6px;color:var(--text);opacity:.9}
+  .hooks li:before{content:"▸";position:absolute;left:0;color:var(--accent)}
 
-  /* spec-out timeline */
-  .so { display:flex; gap:11px; padding:11px 0; border-bottom:1px solid var(--line); }
-  .so:last-child { border-bottom:none; }
-  .so .when { color:var(--muted); font-size:11.5px; width:62px; flex-shrink:0; padding-top:2px; }
-  .so .body { flex:1; }
-  .so .emp { font-weight:700; font-size:13.5px; }
-  .so .status { font-size:12px; margin-top:1px; }
-  .so .note { color:var(--muted); font-size:12px; margin-top:3px; }
+  .target{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+  .target:last-child{border-bottom:none}
+  .target .tinfo{flex:1;min-width:0}
+  .target .tname{font-weight:700;font-size:13.5px}
+  .target .tmeta{color:var(--muted);font-size:11.5px;margin-top:1px}
+  .geo{font-size:10.5px;padding:1px 6px;border-radius:5px;background:var(--panel-2);color:var(--muted);border:1px solid var(--line)}
+  .geo.in{color:var(--good)} .geo.border{color:var(--warm)}
+
+  .so{display:flex;gap:11px;padding:11px 0;border-bottom:1px solid var(--line)}
+  .so:last-child{border-bottom:none}
+  .so .when{color:var(--muted);font-size:11.5px;width:62px;flex-shrink:0;padding-top:2px}
+  .so .body{flex:1}
+  .so .emp{font-weight:700;font-size:13.5px}
+  .so .status{font-size:12px;margin-top:1px}
   .stat-sent{color:var(--muted)} .stat-opened{color:var(--accent)} .stat-interested{color:var(--warm)}
-  .stat-interview{color:var(--good)} .stat-placed{color:var(--good);font-weight:700} .stat-passed{color:var(--muted)}
+  .stat-call{color:var(--good)} .stat-placed{color:var(--good);font-weight:700} .stat-passed{color:var(--muted)}
 
-  /* employer list view */
-  .emp-row { display:flex; align-items:center; gap:14px; padding:13px 16px; border-bottom:1px solid var(--line); }
-  .emp-row:last-child{border-bottom:none}
-  .emp-row .en { font-weight:700; }
-  .emp-row .em { color:var(--muted); font-size:12.5px; }
+  .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:50}
+  .modal{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:24px;width:560px;max-width:92vw;max-height:88vh;overflow:auto}
+  .modal h3{margin:0 0 14px}
+  label.f{display:block;margin-bottom:13px}
+  label.f span{display:block;color:var(--muted);font-size:12.5px;margin-bottom:5px}
+  .modal input,.modal textarea,.modal select{width:100%;background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:8px;padding:9px 11px;font-size:14px;font-family:inherit}
+  .modal textarea{min-height:150px;resize:vertical;line-height:1.55}
+  .modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:6px}
+  .pitchbox{background:var(--panel-2);border:1px solid var(--line);border-radius:8px;padding:14px;font-size:13px;line-height:1.6;white-space:pre-wrap}
+  .anonnote{font-size:11.5px;color:var(--warm);margin:8px 0 0;display:flex;gap:6px;align-items:flex-start}
 
-  /* ---------- Modal ---------- */
-  .modal-bg { position:fixed; inset:0; background:rgba(0,0,0,.6); display:flex; align-items:center; justify-content:center; z-index:50; }
-  .modal { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:24px; width:520px; max-width:92vw; max-height:88vh; overflow:auto; }
-  .modal h3 { margin:0 0 16px; }
-  label.f { display:block; margin-bottom:13px; }
-  label.f span { display:block; color:var(--muted); font-size:12.5px; margin-bottom:5px; }
-  .modal input, .modal textarea, .modal select {
-    width:100%; background:var(--panel-2); border:1px solid var(--line); color:var(--text);
-    border-radius:8px; padding:9px 11px; font-size:14px; font-family:inherit;
-  }
-  .modal textarea { min-height:120px; resize:vertical; line-height:1.5; }
-  .modal-actions { display:flex; gap:10px; justify-content:flex-end; margin-top:8px; }
-  .pitchbox { background:var(--panel-2); border:1px solid var(--line); border-radius:8px; padding:14px; font-size:13px; line-height:1.6; white-space:pre-wrap; }
-
-  .empty { text-align:center; color:var(--muted); padding:60px 20px; }
-  .empty h2 { color:var(--text); margin-bottom:6px; }
+  .empty{text-align:center;color:var(--muted);padding:60px 20px}
+  .empty h2{color:var(--text);margin-bottom:6px}
+  .priv{font-size:11.5px;color:var(--muted);background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 13px;margin:0 2px 18px;display:flex;gap:8px;align-items:flex-start}
+  .priv b{color:var(--text)}
 </style>
 </head>
 <body>
@@ -168,409 +125,283 @@
   <div class="tagline">the candidate is the product</div>
   <nav id="nav"></nav>
   <div class="spacer"></div>
-  <button class="btn" onclick="openAddCandidate()">+ New candidate</button>
+  <div class="src" id="srcBadge"><span class="dot"></span><span id="srcText">sample</span></div>
+  <button class="btn ghost sm" onclick="document.getElementById('benchFile').click()">Load my bench</button>
+  <input type="file" id="benchFile" accept="application/json" style="display:none" onchange="importBench(event)">
 </header>
 <main id="app"></main>
 <div id="modal-root"></div>
 
 <script>
 /* ============================================================
-   Shelf — a candidate-first ATS/CRM prototype
-   Philosophy: the candidate is the product. The home screen is
-   your shelf of products. The core action is the SPEC-OUT:
-   proactively marketing a candidate to an employer.
-   Everything else is noise.
+   Shelf — a candidate-first bench tool for Williams Recruitment.
+   The bench IS the product. Each candidate's live job matches are
+   the targets; the spec-out is the one action that matters.
+
+   PRIVACY: real candidate data never leaves this browser. The
+   public repo ships an anonymised sample only. "Load my bench"
+   reads your per_candidate.json locally (FileReader) into this
+   browser's localStorage — no upload, no server, no commit.
    ============================================================ */
 
-const KEY = 'shelf.v1';
+const LS_BENCH = 'shelf.bench.v1';     // your real bench (local only)
+const LS_OUT   = 'shelf.specouts.v1';  // spec-out log (local only)
 const todayISO = '2026-06-19';
 
-/* ---------- seed data (feels alive on first run) ---------- */
-function seed() {
-  return {
-    candidates: [
-      { id:'c1', name:'Priya Nair', title:'Senior Financial Controller', location:'Manchester',
-        salary:'£75k', availability:'4 weeks notice', status:'active',
-        skills:['ACA','SaaS','FP&A','Team lead','NetSuite'],
-        headline:'Qualified ACA controller who took a £30m SaaS business through its Series B. Rare combo of technical accounting and genuine commercial nous. Wants a smaller, faster business where she can build the function.',
-        sectors:['SaaS','Tech','Fintech'] },
-      { id:'c2', name:'Marcus Bell', title:'Head of Sales (SaaS)', location:'London / remote',
-        salary:'£90k + comm', availability:'Immediate', status:'active',
-        skills:['New business','Team build','MEDDIC','£2m+ quota','Enterprise'],
-        headline:'Built and led a 12-person SDR+AE team from scratch, 3x ARR in 2 years. Closer who also coaches. On the market quietly — move fast, he will not stay available long.',
-        sectors:['SaaS','Tech'] },
-      { id:'c3', name:'Aisha Okafor', title:'Lead Product Designer', location:'Bristol',
-        salary:'£68k', availability:'1 month', status:'active',
-        skills:['Design systems','B2B','Figma','0→1','Research'],
-        headline:'Took a clunky B2B platform and rebuilt the whole experience — activation up 40%. Equally happy in research and pixels. Looking for a product-led company that takes design seriously.',
-        sectors:['SaaS','Tech','Fintech'] },
-      { id:'c4', name:'Tom Hargreaves', title:'Operations Director', location:'Leeds',
-        salary:'£85k', availability:'3 months', status:'paused',
-        skills:['Logistics','P&L','Lean','Scale-up','M&A integration'],
-        headline:'Scaled ops for a D2C brand from £5m to £40m. Knows warehousing, supply chain and the messy bit of integrating an acquisition. Currently weighing a counter-offer — keep warm.',
-        sectors:['D2C','Retail','Logistics'] },
-    ],
-    employers: [
-      { id:'e1', name:'Northstar Software', sector:'SaaS', location:'Manchester', contactName:'Helen Frost', contactEmail:'helen@northstar.io' },
-      { id:'e2', name:'Cobalt Fintech', sector:'Fintech', location:'London', contactName:'Raj Mehta', contactEmail:'raj@cobalt.com' },
-      { id:'e3', name:'Loop Commerce', sector:'D2C', location:'Leeds', contactName:'Dani Cole', contactEmail:'dani@loop.com' },
-      { id:'e4', name:'Verge Analytics', sector:'Tech', location:'Bristol', contactName:'Sam Pryce', contactEmail:'sam@verge.ai' },
-      { id:'e5', name:'Tessellate SaaS', sector:'SaaS', location:'Remote', contactName:'Owen Black', contactEmail:'owen@tessellate.app' },
-      { id:'e6', name:'Harbour Retail Group', sector:'Retail', location:'Manchester', contactName:'Lucy Adeyemi', contactEmail:'lucy@harbour.co' },
-    ],
-    specouts: [
-      { id:'s1', candidateId:'c1', employerId:'e1', date:'2026-06-16', status:'interested', note:'Helen wants to see the anonymised profile — replied within the hour.' },
-      { id:'s2', candidateId:'c1', employerId:'e2', date:'2026-06-12', status:'opened', note:'Opened twice, no reply yet. Chase Friday.' },
-      { id:'s3', candidateId:'c2', employerId:'e5', date:'2026-06-18', status:'interview', note:'First call booked Thu 2pm. Marcus prepped.' },
-      { id:'s4', candidateId:'c2', employerId:'e2', date:'2026-06-10', status:'passed', note:'Already filled the role. Keep Raj warm for next one.' },
-      { id:'s5', candidateId:'c3', employerId:'e4', date:'2026-06-17', status:'sent', note:'Spec sent, anonymised.' },
-    ],
-  };
-}
+let BENCH = null;      // {candidates:[...]}
+let SOURCE = 'sample'; // 'sample' | 'local'
+let SPECOUTS = loadSpecouts();
+let view = { name:'board', id:null };
+let filter = { q:'', sector:'all', status:'all' };
 
-/* ---------- state ---------- */
-let DB = load();
-let view = { name:'board', candidateId:null };
+/* ---------- load ---------- */
+function loadSpecouts(){ try{ return JSON.parse(localStorage.getItem(LS_OUT))||[] }catch(e){ return [] } }
+function saveSpecouts(){ localStorage.setItem(LS_OUT, JSON.stringify(SPECOUTS)); }
 
-function load() {
+async function boot(){
+  const local = localStorage.getItem(LS_BENCH);
+  if(local){
+    try { BENCH = JSON.parse(local); SOURCE='local'; render(); updateSrc(); return; } catch(e){}
+  }
+  // fall back to anonymised sample shipped with the repo
   try {
-    const raw = localStorage.getItem(KEY);
-    if (raw) return JSON.parse(raw);
-  } catch(e) {}
-  const s = seed();
-  localStorage.setItem(KEY, JSON.stringify(s));
-  return s;
+    const res = await fetch('bench.sample.json');
+    BENCH = await res.json(); SOURCE='sample';
+  } catch(e){
+    BENCH = { candidates: [] };
+    document.getElementById('app').innerHTML =
+      `<div class="empty"><h2>Couldn't load the sample</h2><p>Open this page over http (or use “Load my bench”). If you double-clicked the file, your browser may block local fetches.</p></div>`;
+  }
+  render(); updateSrc();
 }
-function save() { localStorage.setItem(KEY, JSON.stringify(DB)); }
-function uid(p){ return p + Math.random().toString(36).slice(2,8); }
+
+function updateSrc(){
+  const b = document.getElementById('srcBadge');
+  const t = document.getElementById('srcText');
+  if(SOURCE==='local'){ b.classList.add('live'); t.textContent = `your bench · ${(BENCH.candidates||[]).length}`; }
+  else { b.classList.remove('live'); t.textContent = `anonymised sample`; }
+}
+
+function importBench(ev){
+  const file = ev.target.files[0]; if(!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const data = JSON.parse(reader.result);
+      if(!data.candidates || !Array.isArray(data.candidates)) throw new Error('no candidates[]');
+      BENCH = data; SOURCE='local';
+      localStorage.setItem(LS_BENCH, JSON.stringify(data));
+      view = {name:'board', id:null}; render(); updateSrc();
+    } catch(e){ alert('That file did not look like a per_candidate.json bench export.\n\n('+e.message+')'); }
+  };
+  reader.readAsText(file);
+  ev.target.value = '';
+}
 
 /* ---------- helpers ---------- */
-const STATUS_LABEL = { sent:'Spec sent', opened:'Opened', interested:'Interested', interview:'Interview booked', placed:'Placed', passed:'Passed' };
-const STATUS_ORDER = ['sent','opened','interested','interview','placed','passed'];
+function cand(id){ return (BENCH.candidates||[]).find(c => cid(c)===id); }
+function cid(c){ return c.candidateId || c.name; }
+function matches(c){ return (c.matches||[]).filter(m=>m && (m.title||m.company)); }
+function topMatch(c){ const m=matches(c); return m.length? Math.max(...m.map(x=>x.pct||0)) : 0; }
+function statusOf(c){ return c.status || 'active'; }
+function outsFor(id){ return SPECOUTS.filter(s=>s.candidateId===id); }
+function daysAgo(iso){ const d=(new Date(todayISO)-new Date(iso))/86400000; if(d<1)return'today'; if(d<2)return'yesterday'; return Math.round(d)+'d ago'; }
 
-function specoutsFor(cid){ return DB.specouts.filter(s=>s.candidateId===cid); }
-function liveSpecouts(cid){ return specoutsFor(cid).filter(s=>!['passed'].includes(s.status)); }
-function emp(id){ return DB.employers.find(e=>e.id===id) || {name:'Unknown'}; }
-function cand(id){ return DB.candidates.find(c=>c.id===id); }
+const SO_LABEL = { sent:'Spec sent', opened:'Opened', interested:'Interested', call:'Call booked', placed:'Placed', passed:'Passed' };
+const SO_ORDER = ['sent','opened','interested','call','placed','passed'];
 
-function responseRate(cid){
-  const all = specoutsFor(cid);
-  if(!all.length) return 0;
-  const responded = all.filter(s=>['interested','interview','placed'].includes(s.status)).length;
-  return Math.round(responded/all.length*100);
-}
-function heat(cid){
-  const live = liveSpecouts(cid);
-  if(live.some(s=>s.status==='interview')) return 'hot';
-  if(live.some(s=>s.status==='interested')) return 'warm';
-  if(live.length) return 'good';
-  return 'cold';
-}
-function daysAgo(iso){
-  const d = (new Date(todayISO) - new Date(iso))/86400000;
-  if(d<=0) return 'today'; if(d<1) return 'today'; if(d<2) return 'yesterday';
-  return Math.round(d)+'d ago';
-}
-function nextAction(c){
-  const live = liveSpecouts(c.id);
-  if(c.status==='placed') return {dot:'good', text:'Placed — collect the fee 🎉'};
-  if(c.status==='paused') return {dot:'cold', text:'Paused — keep warm'};
-  const interview = live.find(s=>s.status==='interview');
-  if(interview) return {dot:'hot', text:`Prep for interview at <b>${emp(interview.employerId).name}</b>`};
-  const interested = live.find(s=>s.status==='interested');
-  if(interested) return {dot:'warm', text:`<b>${emp(interested.employerId).name}</b> is interested — send the profile`};
-  const targets = targetsFor(c).length;
-  if(targets) return {dot:'good', text:`Spec out to <b>${targets}</b> fresh employer${targets>1?'s':''}`};
-  return {dot:'cold', text:'No untapped targets — find more employers'};
-}
-
-/* the engine: who should we spec this candidate to next? */
-function targetsFor(c){
-  const already = new Set(specoutsFor(c.id).map(s=>s.employerId));
-  return DB.employers
-    .filter(e=>!already.has(e.id))
-    .map(e=>{
-      let score = 0;
-      if(c.sectors && c.sectors.includes(e.sector)) score += 2;
-      if(c.location && e.location && (c.location.includes(e.location.split(' ')[0]) || e.location==='Remote')) score += 1;
-      return {emp:e, score};
-    })
-    .sort((a,b)=>b.score-a.score);
-}
+/* heat = closeness to a spec-out opportunity */
+function heatClass(c){ const t=topMatch(c); if(t>=80)return'm-hot'; if(t>0)return'm-warm'; return'm-none'; }
 
 /* ---------- render ---------- */
 function render(){
   renderNav();
   const app = document.getElementById('app');
   if(view.name==='board') app.innerHTML = boardView();
-  else if(view.name==='candidate') app.innerHTML = candidateView(view.candidateId);
-  else if(view.name==='market') app.innerHTML = marketView();
+  else if(view.name==='candidate') app.innerHTML = candidateView(view.id);
 }
-
 function renderNav(){
-  const nav = document.getElementById('nav');
-  const tabs = [['board','The Shelf'],['market','The Market']];
-  nav.innerHTML = tabs.map(([k,l])=>
-    `<button class="${view.name===k||(k==='board'&&view.name==='candidate')?'active':''}" onclick="go('${k}')">${l}</button>`
-  ).join('');
+  document.getElementById('nav').innerHTML =
+    `<button class="${view.name!=='candidate'?'active':''}" onclick="go('board')">The Bench</button>`;
 }
 
 function metricsStrip(){
-  const active = DB.candidates.filter(c=>c.status==='active').length;
-  const weekSpecouts = DB.specouts.filter(s=>(new Date(todayISO)-new Date(s.date))/86400000 <= 7).length;
-  const responses = DB.specouts.filter(s=>['interested','interview','placed'].includes(s.status)).length;
-  const interviews = DB.specouts.filter(s=>s.status==='interview').length;
-  const placed = DB.specouts.filter(s=>s.status==='placed').length;
+  const cs = BENCH.candidates||[];
+  const active = cs.filter(c=>statusOf(c)==='active').length;
+  const withTargets = cs.filter(c=>matches(c).length>0).length;
+  const totalTargets = cs.reduce((n,c)=>n+matches(c).length,0);
+  const sent = SPECOUTS.length;
+  const live = SPECOUTS.filter(s=>['interested','call'].includes(s.status)).length;
   const m = [
-    [active,'candidates being marketed'],
-    [weekSpecouts,'spec-outs this week'],
-    [responses,'live employer responses'],
-    [interviews,'interviews in play'],
-    [placed,'placements'],
+    [cs.length,'on the bench'],
+    [active,'actively marketed'],
+    [withTargets,'with live targets'],
+    [totalTargets,'open target roles'],
+    [sent,'spec-outs logged'],
   ];
   return `<div class="metrics">${m.map(([n,l])=>`<div class="metric"><div class="n">${n}</div><div class="l">${l}</div></div>`).join('')}</div>`;
 }
 
 function boardView(){
-  const order = {active:0, paused:1, placed:2};
-  const cands = [...DB.candidates].sort((a,b)=>(order[a.status]??9)-(order[b.status]??9));
-  const cards = cands.map(c=>{
-    const na = nextAction(c);
-    const live = liveSpecouts(c.id).length;
-    return `<div class="card" onclick="openCandidate('${c.id}')">
+  let cs = [...(BENCH.candidates||[])];
+  // filters
+  if(filter.sector!=='all') cs = cs.filter(c=>(c.primarySector||'')===filter.sector);
+  if(filter.status!=='all') cs = cs.filter(c=>statusOf(c)===filter.status);
+  if(filter.q){
+    const q=filter.q.toLowerCase();
+    cs = cs.filter(c=>JSON.stringify([c.name,c.primarySector,c.geography,c.seniority,c.targetRoles,c.anonRef]).toLowerCase().includes(q));
+  }
+  // sort: hottest first (top match desc, then # targets, then seniority)
+  const SEN = {'C-suite':6,'SVP':5,'VP':4,'Director':3,'Senior Manager':2,'Manager':1};
+  cs.sort((a,b)=> topMatch(b)-topMatch(a) || matches(b).length-matches(a).length || (SEN[b.seniority]||0)-(SEN[a.seniority]||0));
+
+  const sectors = [...new Set((BENCH.candidates||[]).map(c=>c.primarySector).filter(Boolean))].sort();
+
+  const cards = cs.map(c=>{
+    const id=cid(c), m=matches(c), t=topMatch(c);
+    return `<div class="card" onclick="openCandidate('${id}')">
       <div class="top">
-        <div><div class="name">${c.name}</div><div class="role">${c.title} · ${c.location}</div></div>
-        <span class="pill ${c.status}">${c.status==='active'?'marketing':c.status}</span>
+        <div><div class="name">${esc(c.name)}</div><div class="role">${esc(c.seniority||'')} · ${esc(c.primarySector||'')} · ${esc(c.geography||'')}</div></div>
+        <span class="pill ${statusOf(c)}">${statusOf(c)==='active'?'marketing':statusOf(c)}</span>
       </div>
-      <div class="meta">
-        <div><div class="v">${live}</div><div class="k">live spec-outs</div></div>
-        <div><div class="v">${responseRate(c.id)}%</div><div class="k">response rate</div></div>
-        <div><div class="v">${c.salary}</div><div class="k">target</div></div>
+      <div class="ref">${esc(c.anonRef||'No anon profile yet.')}</div>
+      <div class="foot">
+        <span class="matchbadge ${heatClass(c)}">${t?t+'%':'—'}</span>
+        <span><b>${m.length}</b> live target${m.length!==1?'s':''}${m.length?` · top: ${esc(m[0].company||m[0].title||'')}`:''}</span>
       </div>
-      <div class="nextline"><span class="dot ${na.dot}"></span> <span><b>Next:</b> ${na.text}</span></div>
     </div>`;
   }).join('');
+
   return `${metricsStrip()}
-    <div class="creed">One rule: if it doesn't help you market a candidate or close a placement, it's noise. So it isn't here.</div>
-    <div class="section-head"><h2>The Shelf</h2><span class="sub">your products — each one actively being sold</span></div>
-    <div class="board">${cards}</div>`;
+    <div class="creed">One rule: if it doesn't help spec a candidate out, it's noise. So it isn't here.</div>
+    ${SOURCE==='sample'? `<div class="priv">🔒 <span>You're viewing the <b>anonymised sample</b>. Click <b>Load my bench</b> (top right) and pick your <b>per_candidate.json</b> — it's read in this browser only, never uploaded and never committed.</span></div>`:''}
+    <div class="controls">
+      <input type="text" placeholder="Search bench…" value="${attr(filter.q)}" oninput="setFilter('q',this.value)">
+      <select onchange="setFilter('sector',this.value)"><option value="all">All sectors</option>${sectors.map(s=>`<option ${filter.sector===s?'selected':''} value="${attr(s)}">${esc(s)}</option>`).join('')}</select>
+      <select onchange="setFilter('status',this.value)"><option value="all">All</option><option ${filter.status==='active'?'selected':''} value="active">Active</option><option ${filter.status==='parked'?'selected':''} value="parked">Parked</option></select>
+      <span style="color:var(--muted);font-size:12.5px">${cs.length} shown</span>
+    </div>
+    <div class="section-head"><h2>The Bench</h2><span class="sub">your products — ranked by who's closest to a spec-out</span></div>
+    <div class="board">${cards||'<div class="empty">No candidates match.</div>'}</div>`;
 }
 
-function candidateView(cid){
-  const c = cand(cid);
-  if(!c) return '<div class="empty">Not found</div>';
-  const targets = targetsFor(c);
-  const sos = [...specoutsFor(cid)].sort((a,b)=> new Date(b.date)-new Date(a.date));
+function candidateView(id){
+  const c = cand(id); if(!c) return '<div class="empty">Not found</div>';
+  const m = matches(c); const outs = [...outsFor(id)].sort((a,b)=>new Date(b.date)-new Date(a.date));
+  const sentTo = new Set(outs.map(o=>o.target));
 
-  const specSheet = `<div class="panel specsheet">
-    <div class="cand-header">
-      <div><h1>${c.name}</h1></div>
-      <span class="pill ${c.status}">${c.status==='active'?'marketing':c.status}</span>
-    </div>
-    <div class="cand-sub">${c.title} · ${c.location}</div>
+  const sheet = `<div class="panel specsheet">
+    <div class="cand-header"><h1>${esc(c.name)}</h1><span class="pill ${statusOf(c)}">${statusOf(c)==='active'?'marketing':statusOf(c)}</span></div>
+    <div class="cand-sub">${esc(c.seniority||'')} · ${esc(c.primarySector||'')} · ${esc(c.geography||'')}</div>
     <dl>
-      <dt>Target</dt><dd>${c.salary}</dd>
-      <dt>Availability</dt><dd>${c.availability}</dd>
-      <dt>Sectors</dt><dd>${(c.sectors||[]).join(', ')||'—'}</dd>
-      <dt>Strengths</dt><dd><div class="tags">${(c.skills||[]).map(s=>`<span class="tag">${s}</span>`).join('')}</div></dd>
+      <dt>Targets</dt><dd>${(c.targetRoles||[]).map(esc).join(', ')||'—'}</dd>
+      <dt>Sectors</dt><dd>${(c.sectorTags||[]).map(esc).join(', ')||esc(c.primarySector||'—')}</dd>
+      <dt>Scale</dt><dd>${esc(c.scaleHandled||'—')}</dd>
+      <dt>Anchors</dt><dd><div class="tags">${(c.anchorSkills||[]).map(s=>`<span class="tag">${esc(s)}</span>`).join('')||'—'}</div></dd>
     </dl>
-    <div class="headline">${c.headline||''}</div>
-    <div style="margin-top:16px;display:flex;gap:10px">
-      <button class="btn sm" onclick="openStatus('${c.id}')">Update status</button>
-      <button class="btn sm ghost" onclick="editCandidate('${c.id}')">Edit spec sheet</button>
-    </div>
+    <div class="ref-block"><b style="color:var(--accent)">Anon spec:</b> ${esc(c.anonRef||'—')}</div>
+    ${(c.pitchHooks||[]).length?`<div style="margin-top:14px"><div class="hint" style="margin:0 0 6px">Pitch hooks</div><ul class="hooks">${c.pitchHooks.map(h=>`<li>${esc(h)}</li>`).join('')}</ul></div>`:''}
   </div>`;
 
   const engine = `<div class="panel">
-    <h3>Spec-out engine</h3>
-    <p class="hint">Fresh employers this candidate hasn't been pitched to. Ranked by fit. This is the engine that keeps them on the market.</p>
-    ${targets.length ? targets.slice(0,5).map(t=>`
+    <h3>Spec-out engine <span style="color:var(--muted);font-weight:400;font-size:13px">· ${m.length} live target${m.length!==1?'s':''}</span></h3>
+    <p class="hint">Open roles your engine matched to this candidate. Each one is a spec-out waiting to happen.</p>
+    ${m.length? m.map((t,i)=>`
       <div class="target">
         <div class="tinfo">
-          <div class="tname">${t.emp.name}</div>
-          <div class="tmeta">${t.emp.sector} · ${t.emp.location} · ${t.emp.contactName}</div>
+          <div class="tname">${esc(t.title||'Role')} <span style="color:var(--muted);font-weight:400">· ${esc(t.company||'')}</span></div>
+          <div class="tmeta">${esc(t.location||'')} ${t.source?'· '+esc(t.source):''} ${t.postedAt?'· posted '+daysAgo(t.postedAt):''} ${t.geoStatus?`<span class="geo ${esc(t.geoStatus)}">${esc(t.geoStatus)}</span>`:''}</div>
         </div>
-        ${t.score>=2?'<span class="match">strong fit</span>':t.score===1?'<span class="match" style="background:rgba(246,183,60,.12);color:var(--warm)">possible</span>':''}
-        <button class="btn sm" onclick="openSpecout('${c.id}','${t.emp.id}')">Spec out →</button>
+        <span class="matchbadge ${ (t.pct||0)>=80?'m-hot':'m-warm'}">${t.pct||'?'}%</span>
+        ${sentTo.has(targetKey(t))?'<span class="geo in" style="white-space:nowrap">specced ✓</span>':`<button class="btn sm" onclick="openSpecout('${id}',${i})">Spec out →</button>`}
       </div>`).join('')
-      : '<div class="hint">No untapped employers left. Add more to The Market to keep marketing this candidate.</div>'}
+      : `<div class="hint">No live targets from the engine yet. ${SOURCE==='sample'?'(Load your bench to see real matches.)':'They’ll appear here on the next engine run.'}</div>`}
   </div>`;
 
   const timeline = `<div class="panel" style="margin-top:18px">
-    <h3>Live spec-outs <span style="color:var(--muted);font-weight:400;font-size:13px">· ${responseRate(cid)}% response rate</span></h3>
+    <h3>Spec-out log</h3>
     <p class="hint">Every time this candidate has been put in front of an employer.</p>
-    ${sos.length ? sos.map(s=>`
+    ${outs.length? outs.map(o=>`
       <div class="so">
-        <div class="when">${daysAgo(s.date)}</div>
+        <div class="when">${daysAgo(o.date)}</div>
         <div class="body">
-          <div class="emp">${emp(s.employerId).name}</div>
-          <div class="status stat-${s.status}">${STATUS_LABEL[s.status]}</div>
-          ${s.note?`<div class="note">${s.note}</div>`:''}
-          <div style="margin-top:6px"><button class="btn sm ghost" onclick="openAdvance('${s.id}')">Log update</button></div>
+          <div class="emp">${esc(o.targetLabel||'')}</div>
+          <div class="status stat-${o.status}">${SO_LABEL[o.status]||o.status}</div>
+          ${o.note?`<div class="hint" style="margin:3px 0 0">${esc(o.note)}</div>`:''}
+          <div style="margin-top:6px"><button class="btn sm ghost" onclick="openAdvance('${o.id}')">Log update</button></div>
         </div>
       </div>`).join('')
       : '<div class="hint">Not specced out yet. Use the engine →</div>'}
   </div>`;
 
-  return `<button class="back" onclick="go('board')">← The Shelf</button>
-    <div class="detail-grid">
-      <div>${specSheet}</div>
-      <div>${engine}${timeline}</div>
-    </div>`;
+  return `<button class="back" onclick="go('board')">← The Bench</button>
+    <div class="detail-grid"><div>${sheet}</div><div>${engine}${timeline}</div></div>`;
 }
 
-function marketView(){
-  const rows = DB.employers.map(e=>{
-    const count = DB.specouts.filter(s=>s.employerId===e.id).length;
-    return `<div class="emp-row">
-      <div style="flex:1"><div class="en">${e.name}</div><div class="em">${e.sector} · ${e.location} · ${e.contactName} (${e.contactEmail})</div></div>
-      <div class="em">${count} spec-out${count!==1?'s':''}</div>
-    </div>`;
-  }).join('');
-  return `<div class="section-head"><h2>The Market</h2><span class="sub">buyers for your products — kept deliberately thin</span></div>
-    <div class="panel" style="padding:0">${rows}</div>
-    <div style="margin-top:16px"><button class="btn" onclick="openAddEmployer()">+ Add employer</button></div>`;
-}
+/* ---------- spec-out ---------- */
+function targetKey(t){ return (t.company||'')+'|'+(t.title||''); }
 
-/* ---------- navigation ---------- */
-function go(name){ view = {name, candidateId:null}; render(); }
-function openCandidate(id){ view = {name:'candidate', candidateId:id}; render(); }
-
-/* ---------- modals ---------- */
-function modal(html){ document.getElementById('modal-root').innerHTML = `<div class="modal-bg" onclick="if(event.target===this)closeModal()"><div class="modal">${html}</div></div>`; }
-function closeModal(){ document.getElementById('modal-root').innerHTML=''; }
-
-function openAddCandidate(){
-  modal(`<h3>New candidate — add a product to the shelf</h3>
-    <label class="f"><span>Name</span><input id="m_name" placeholder="Jane Doe"></label>
-    <label class="f"><span>Title</span><input id="m_title" placeholder="Senior Financial Controller"></label>
-    <div style="display:flex;gap:10px">
-      <label class="f" style="flex:1"><span>Location</span><input id="m_loc" placeholder="Manchester"></label>
-      <label class="f" style="flex:1"><span>Salary target</span><input id="m_sal" placeholder="£75k"></label>
-    </div>
-    <label class="f"><span>Availability</span><input id="m_avail" placeholder="4 weeks notice"></label>
-    <label class="f"><span>Sectors (comma separated)</span><input id="m_sectors" placeholder="SaaS, Fintech"></label>
-    <label class="f"><span>Strengths (comma separated)</span><input id="m_skills" placeholder="ACA, FP&A, Team lead"></label>
-    <label class="f"><span>The pitch — why an employer should want them</span><textarea id="m_headline" placeholder="One paragraph. This is what you'll spec out."></textarea></label>
-    <div class="modal-actions"><button class="btn ghost" onclick="closeModal()">Cancel</button><button class="btn" onclick="addCandidate()">Add to shelf</button></div>`);
-}
-function addCandidate(){
-  const g = id=>document.getElementById(id).value.trim();
-  const list = s => s.split(',').map(x=>x.trim()).filter(Boolean);
-  if(!g('m_name')) return;
-  const c = { id:uid('c'), name:g('m_name'), title:g('m_title'), location:g('m_loc'),
-    salary:g('m_sal'), availability:g('m_avail'), status:'active',
-    sectors:list(g('m_sectors')), skills:list(g('m_skills')), headline:g('m_headline') };
-  DB.candidates.push(c); save(); closeModal(); openCandidate(c.id);
-}
-
-function editCandidate(id){
-  const c = cand(id);
-  modal(`<h3>Edit spec sheet</h3>
-    <label class="f"><span>Name</span><input id="m_name" value="${attr(c.name)}"></label>
-    <label class="f"><span>Title</span><input id="m_title" value="${attr(c.title)}"></label>
-    <div style="display:flex;gap:10px">
-      <label class="f" style="flex:1"><span>Location</span><input id="m_loc" value="${attr(c.location)}"></label>
-      <label class="f" style="flex:1"><span>Salary target</span><input id="m_sal" value="${attr(c.salary)}"></label>
-    </div>
-    <label class="f"><span>Availability</span><input id="m_avail" value="${attr(c.availability)}"></label>
-    <label class="f"><span>Sectors</span><input id="m_sectors" value="${attr((c.sectors||[]).join(', '))}"></label>
-    <label class="f"><span>Strengths</span><input id="m_skills" value="${attr((c.skills||[]).join(', '))}"></label>
-    <label class="f"><span>The pitch</span><textarea id="m_headline">${c.headline||''}</textarea></label>
-    <div class="modal-actions"><button class="btn ghost" onclick="closeModal()">Cancel</button><button class="btn" onclick="saveCandidate('${id}')">Save</button></div>`);
-}
-function saveCandidate(id){
-  const c = cand(id); const g = i=>document.getElementById(i).value.trim();
-  const list = s => s.split(',').map(x=>x.trim()).filter(Boolean);
-  Object.assign(c, { name:g('m_name'), title:g('m_title'), location:g('m_loc'), salary:g('m_sal'),
-    availability:g('m_avail'), sectors:list(g('m_sectors')), skills:list(g('m_skills')), headline:g('m_headline') });
-  save(); closeModal(); render();
-}
-
-function openStatus(id){
-  const c = cand(id);
-  modal(`<h3>${c.name} — status</h3>
-    <label class="f"><span>Marketing status</span>
-      <select id="m_status">
-        <option value="active" ${c.status==='active'?'selected':''}>Actively marketing</option>
-        <option value="paused" ${c.status==='paused'?'selected':''}>Paused / keep warm</option>
-        <option value="placed" ${c.status==='placed'?'selected':''}>Placed</option>
-      </select></label>
-    <div class="modal-actions"><button class="btn ghost" onclick="closeModal()">Cancel</button><button class="btn" onclick="setStatus('${id}')">Save</button></div>`);
-}
-function setStatus(id){ cand(id).status = document.getElementById('m_status').value; save(); closeModal(); render(); }
-
-/* the core action: spec a candidate out to an employer */
-function openSpecout(cid, eid){
-  const c = cand(cid), e = emp(eid);
-  modal(`<h3>Spec out — ${c.name} → ${e.name}</h3>
-    <p class="hint" style="color:var(--muted);font-size:12.5px;margin:-6px 0 14px">This is the whole job. Generated pitch below — edit, then log it.</p>
-    <div class="pitchbox" id="pitchbox">${pitch(c,e)}</div>
-    <label class="f" style="margin-top:14px"><span>Note (optional)</span><input id="m_note" placeholder="e.g. sent anonymised, chasing Friday"></label>
+function openSpecout(id, idx){
+  const c = cand(id); const t = matches(c)[idx];
+  modal(`<h3>Spec out — ${esc(c.name)} → ${esc(t.company||'')}</h3>
+    <p class="hint" style="margin:-4px 0 12px">This is the whole job: put the candidate in front of the employer. Edit the pitch, then log it.</p>
+    <div class="pitchbox" id="pitchbox">${esc(pitch(c,t))}</div>
+    <div class="anonnote">⚠ <span>Outbound copy uses the <b>anon spec</b> only — no name, no current employer. Identity stays in your decoder.</span></div>
+    <label class="f" style="margin-top:12px"><span>Note (optional)</span><input id="m_note" placeholder="e.g. sent to hiring VP via LinkedIn"></label>
     <div class="modal-actions">
-      <button class="btn ghost" onclick="copyPitch()">Copy pitch</button>
-      <button class="btn" onclick="logSpecout('${cid}','${eid}')">Log spec-out</button>
+      <button class="btn ghost" onclick="copyPitch()">Copy</button>
+      <button class="btn" onclick="logSpecout('${id}',${idx})">Log spec-out</button>
     </div>`);
 }
-function pitch(c, e){
-  const sectors = (c.sectors||[])[0] || 'your sector';
-  return `Hi ${e.contactName.split(' ')[0]},
+function pitch(c, t){
+  const role = (c.targetRoles||[])[0] || c.seniority || 'senior leader';
+  const hooks = (c.pitchHooks||[]).slice(0,3).map(h=>'• '+h).join('\n');
+  const company = t.company || 'your team';
+  return `Subject: ${role} — available now, ${c.primarySector||''}
 
-I've got someone I think you'll want to see — even if you're not actively hiring.
+Hi — I look after a small bench of ${c.primarySector||''} leaders and one of them is a strong fit for ${company}${t.title?` (saw your ${t.title} role)`:''}.
 
-${c.headline}
+${c.anonRef||''}
 
-In short: ${c.title}, ${c.location}, available ${c.availability.toLowerCase()}. Strengths include ${(c.skills||[]).slice(0,3).join(', ')}.
+A few highlights:
+${hooks}
 
-I'm bringing them to a small number of ${sectors} businesses first. Worth a quick call this week?
+Based in ${c.geography||'the US'}, open to ${role} mandates. Happy to share a full anonymised profile and set up a confidential call this week.
 
 Best,
-Scott`;
+Scott
+Williams Recruitment`;
 }
-function copyPitch(){ navigator.clipboard && navigator.clipboard.writeText(document.getElementById('pitchbox').innerText); }
-function logSpecout(cid, eid){
-  DB.specouts.push({ id:uid('s'), candidateId:cid, employerId:eid, date:todayISO, status:'sent', note:document.getElementById('m_note').value.trim() });
-  save(); closeModal(); render();
+function copyPitch(){ const el=document.getElementById('pitchbox'); navigator.clipboard && navigator.clipboard.writeText(el.innerText); }
+function logSpecout(id, idx){
+  const c = cand(id); const t = matches(c)[idx];
+  SPECOUTS.push({ id:'s'+Math.random().toString(36).slice(2,8), candidateId:id, target:targetKey(t),
+    targetLabel:`${t.title||''} · ${t.company||''}`, date:todayISO, status:'sent', note:document.getElementById('m_note').value.trim() });
+  saveSpecouts(); closeModal(); render();
 }
-
 function openAdvance(sid){
-  const s = DB.specouts.find(x=>x.id===sid);
-  modal(`<h3>Log update — ${emp(s.employerId).name}</h3>
-    <label class="f"><span>Where's it at?</span>
-      <select id="m_st">${STATUS_ORDER.map(o=>`<option value="${o}" ${s.status===o?'selected':''}>${STATUS_LABEL[o]}</option>`).join('')}</select></label>
+  const s = SPECOUTS.find(x=>x.id===sid);
+  modal(`<h3>Update — ${esc(s.targetLabel||'')}</h3>
+    <label class="f"><span>Where's it at?</span><select id="m_st">${SO_ORDER.map(o=>`<option value="${o}" ${s.status===o?'selected':''}>${SO_LABEL[o]}</option>`).join('')}</select></label>
     <label class="f"><span>Note</span><input id="m_n" value="${attr(s.note||'')}"></label>
     <div class="modal-actions"><button class="btn ghost" onclick="closeModal()">Cancel</button><button class="btn" onclick="saveAdvance('${sid}')">Save</button></div>`);
 }
 function saveAdvance(sid){
-  const s = DB.specouts.find(x=>x.id===sid);
-  s.status = document.getElementById('m_st').value;
-  s.note = document.getElementById('m_n').value.trim();
-  if(s.status==='placed'){ const c = cand(s.candidateId); if(c) c.status='placed'; }
-  save(); closeModal(); render();
+  const s = SPECOUTS.find(x=>x.id===sid);
+  s.status=document.getElementById('m_st').value; s.note=document.getElementById('m_n').value.trim();
+  saveSpecouts(); closeModal(); render();
 }
 
-function openAddEmployer(){
-  modal(`<h3>Add employer to the market</h3>
-    <label class="f"><span>Company</span><input id="e_name"></label>
-    <div style="display:flex;gap:10px">
-      <label class="f" style="flex:1"><span>Sector</span><input id="e_sector" placeholder="SaaS"></label>
-      <label class="f" style="flex:1"><span>Location</span><input id="e_loc" placeholder="London"></label>
-    </div>
-    <label class="f"><span>Contact name</span><input id="e_contact"></label>
-    <label class="f"><span>Contact email</span><input id="e_email"></label>
-    <div class="modal-actions"><button class="btn ghost" onclick="closeModal()">Cancel</button><button class="btn" onclick="addEmployer()">Add</button></div>`);
-}
-function addEmployer(){
-  const g = i=>document.getElementById(i).value.trim();
-  if(!g('e_name')) return;
-  DB.employers.push({ id:uid('e'), name:g('e_name'), sector:g('e_sector'), location:g('e_loc'), contactName:g('e_contact')||'—', contactEmail:g('e_email')||'' });
-  save(); closeModal(); render();
-}
+/* ---------- nav / modal / util ---------- */
+function go(n){ view={name:n,id:null}; render(); }
+function openCandidate(id){ view={name:'candidate',id}; window.scrollTo(0,0); render(); }
+function setFilter(k,v){ filter[k]=v; render(); if(k==='q'){ const el=document.querySelector('.controls input'); if(el){el.focus(); el.setSelectionRange(el.value.length,el.value.length);} } }
+function modal(h){ document.getElementById('modal-root').innerHTML=`<div class="modal-bg" onclick="if(event.target===this)closeModal()"><div class="modal">${h}</div></div>`; }
+function closeModal(){ document.getElementById('modal-root').innerHTML=''; }
+function esc(s){ return (s==null?'':String(s)).replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }
+function attr(s){ return (s==null?'':String(s)).replace(/"/g,'&quot;'); }
 
-function attr(s){ return (s||'').replace(/"/g,'&quot;'); }
-
-/* reset hook for demos: localStorage.removeItem('shelf.v1') then reload */
-render();
+boot();
 </script>
 </body>
 </html>
