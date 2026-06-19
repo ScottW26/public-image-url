@@ -9,19 +9,30 @@ targets. No 10,000 contacts, no CRM bloat. Just the product and the act of selli
 
 Built for [Williams Recruitment](https://williams-recruitment.com) — food & CPG executive search.
 
-## How to run
+## Run it live locally with your real bench
 
-Because the app loads a JSON file, run it over a local web server (browsers block
-`file://` fetches):
+This is the intended setup: full candidate data, on your own machine, nothing
+uploaded anywhere.
 
-```bash
-cd public-image-url
-python3 -m http.server 8000
-# then open http://localhost:8000
-```
+1. **Get the folder onto your Mac** — download/clone this repo.
+2. **Add your data** — drop your `per_candidate.json` into the folder and rename
+   it **`bench.local.json`** (the app also accepts the original `per_candidate.json`
+   name). This file is **gitignored** — it can never be committed or pushed.
+3. **Launch** — double-click **`start.command`**. It starts a local server and
+   opens the app in your browser, already showing your real bench (the badge
+   top-right reads *“your bench · N · local file”*).
 
-Out of the box it shows an **anonymised sample bench**. To use your real bench,
-click **Load my bench** (top right) and pick your `per_candidate.json`.
+That's it. Update the file (or have `wr-candidate-engine` write it here) and
+refresh — it sits live.
+
+> No `start.command`? Just run `python3 -m http.server 8000` in the folder and
+> open `http://localhost:8000`. Windows: `py -m http.server 8000`.
+
+### Without setting up a file
+You can also click **Load my bench** (top right) and pick your `per_candidate.json`
+on the fly — it's read in-browser only and kept in that browser's local storage.
+
+Out of the box (no local file) the app shows an **anonymised sample bench**.
 
 ## 🔒 Privacy — read this
 
@@ -29,11 +40,14 @@ This repo is **public**, so it contains **no real candidate data**, ever.
 
 - The committed `bench.sample.json` is fully anonymised (CAND codes, like your
   bench register).
-- **Load my bench** reads your `per_candidate.json` *in your browser only*
-  (via `FileReader`). It is never uploaded, never sent to a server, and never
-  committed. It persists in that browser's `localStorage` on your machine.
-- `.gitignore` blocks `per_candidate.json`, `*.local.json` and any decoder files
-  from ever being committed by accident.
+- Your real bench lives in `bench.local.json` / `per_candidate.json`, which is
+  served **only** by the local server on your machine. `.gitignore` blocks those
+  names (and any decoder files) from ever being committed by accident.
+- The **Load my bench** button reads a file *in your browser only* (via
+  `FileReader`) — never uploaded, never sent to a server, kept in that browser's
+  `localStorage`.
+- The app makes **no outbound network calls** — open the Network tab and you'll
+  see it only ever fetches its own local files.
 - Outbound pitches use the **anon spec** (`anonRef`) only — no name, no current
   employer. Real identity stays in your decoder, exactly as your engine does it.
 

@@ -159,18 +159,31 @@ function loadSpecouts(){ try{ return JSON.parse(localStorage.getItem(LS_OUT))||[
 function saveSpecouts(){ localStorage.setItem(LS_OUT, JSON.stringify(SPECOUTS)); }
 
 async function boot(){
+  // 1) Real bench from a LOCAL FILE next to index.html (gitignored, never committed).
+  //    Drop your per_candidate.json here as bench.local.json (or per_candidate.json)
+  //    and it loads live — full names, full data, all on your machine.
+  for(const f of ['bench.local.json','per_candidate.json']){
+    try {
+      const res = await fetch(f, {cache:'no-store'});
+      if(res.ok){
+        const data = await res.json();
+        if(data && Array.isArray(data.candidates)){ BENCH=data; SOURCE='file'; render(); updateSrc(); return; }
+      }
+    } catch(e){ /* not present — fine */ }
+  }
+  // 2) Bench imported earlier via the button (kept in this browser only).
   const local = localStorage.getItem(LS_BENCH);
   if(local){
     try { BENCH = JSON.parse(local); SOURCE='local'; render(); updateSrc(); return; } catch(e){}
   }
-  // fall back to anonymised sample shipped with the repo
+  // 3) Anonymised sample shipped with the repo.
   try {
     const res = await fetch('bench.sample.json');
     BENCH = await res.json(); SOURCE='sample';
   } catch(e){
     BENCH = { candidates: [] };
     document.getElementById('app').innerHTML =
-      `<div class="empty"><h2>Couldn't load the sample</h2><p>Open this page over http (or use “Load my bench”). If you double-clicked the file, your browser may block local fetches.</p></div>`;
+      `<div class="empty"><h2>Couldn't load any bench</h2><p>Run this over a local server (see README / the <code>start</code> script). Double-clicking the file makes the browser block local data loads.</p></div>`;
   }
   render(); updateSrc();
 }
@@ -178,7 +191,9 @@ async function boot(){
 function updateSrc(){
   const b = document.getElementById('srcBadge');
   const t = document.getElementById('srcText');
-  if(SOURCE==='local'){ b.classList.add('live'); t.textContent = `your bench · ${(BENCH.candidates||[]).length}`; }
+  const n = (BENCH.candidates||[]).length;
+  if(SOURCE==='file'){ b.classList.add('live'); t.textContent = `your bench · ${n} · local file`; }
+  else if(SOURCE==='local'){ b.classList.add('live'); t.textContent = `your bench · ${n}`; }
   else { b.classList.remove('live'); t.textContent = `anonymised sample`; }
 }
 
