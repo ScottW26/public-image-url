@@ -100,6 +100,28 @@ vacancy or not. Each candidate carries `targetBusinesses[]`:
 higher, it never gates it out. The candidate page shows these as ranked cards with
 the reasoning and a one-click spec-out whose pitch writes itself from the reasoning.
 
+### Auto-finding the businesses (`find_businesses.js`)
+
+The engine that fills `targetBusinesses[]` for the whole bench. For each candidate
+it builds targeted searches from their profile (sector + channel + geography +
+scale), finds real businesses, scores the fit, writes the reasoning, and
+**excludes their own past employers** (parsed from their profile — you never spec
+someone back where they came from).
+
+```bash
+# Fully automated with a free Brave Search API key:
+BRAVE_API_KEY=xxxx node find_businesses.js bench.local.json
+
+# Or feed it results gathered in a Claude web-search session:
+node find_businesses.js bench.local.json --results search_results.json
+
+# Or with no search backend, it writes the exact queries to run per candidate:
+node find_businesses.js bench.local.json   # -> research_queries.json
+```
+
+It only fills candidates that don't already have businesses (use `--force` to
+redo). After it runs, verify the contact emails (below), then reload Shelf.
+
 ### Finding & verifying the contact email (Reoon)
 
 `verify_emails.js` turns a guessed contact into a deliverable one using the

@@ -23,6 +23,53 @@
         { "pct": 86, "title": "President, Snacking", "company": "Harvest Snack Co.", "location": "Chicago, IL", "source": "linkedin", "geoStatus": "in", "postedAt": "2026-06-15T00:00:00.000Z", "industries": "Food & Beverage" },
         { "pct": 78, "title": "Chief Commercial Officer", "company": "Prairie Better Foods", "location": "Naperville, IL", "source": "linkedin", "geoStatus": "in", "postedAt": "2026-06-12T00:00:00.000Z", "industries": "Manufacturing" },
         { "pct": 72, "title": "VP Sales, Mass & Club", "company": "Summit Nutrition", "location": "Remote", "source": "indeed", "geoStatus": "national", "postedAt": "2026-06-09T00:00:00.000Z", "industries": "Food Production" }
+      ],
+      "targetBusinesses": [
+        {
+          "company": "Western Smokehouse Partners",
+          "domain": "westernsmokehouse.com",
+          "location": "Galesburg, IL",
+          "sector": "Better-for-you meat snacks (brands + contract)",
+          "revenueBand": "$75M-$200M",
+          "fit": "strong",
+          "fitScore": 90,
+          "reasoning": [
+            "Better-for-you snacking in Illinois — their category and their home turf",
+            "Scaling hard via M&A (Thrushwood, Prairie Sky) — needs a commercial leader to turn capacity into branded growth",
+            "Ran a $180M snacking P&L across club and mass — exactly this weight class and channel"
+          ],
+          "contact": { "name": "", "role": "President / CEO", "email": "sales@westernsmokehouse.com", "emailType": "role", "emailStatus": "format_valid" }
+        },
+        {
+          "company": "Benestar Brands",
+          "domain": "benestarbrands.com",
+          "location": "Chicago, IL",
+          "sector": "Branded + private-label snacks",
+          "revenueBand": "$75M-$200M",
+          "fit": "good",
+          "fitScore": 83,
+          "reasoning": [
+            "Chicago branded snack maker — on his doorstep",
+            "Club and mass distribution is their growth lane and his exact wheelhouse",
+            "Multi-site producer that needs a commercial GM to scale national accounts"
+          ],
+          "contact": { "name": "", "role": "President", "email": "sales@benestarbrands.com", "emailType": "role", "emailStatus": "format_valid" }
+        },
+        {
+          "company": "Piedmont Candy (Thinful)",
+          "domain": "piedmontcandy.com",
+          "location": "Lexington, NC",
+          "sector": "Better-for-you low-sugar snacks",
+          "revenueBand": "$25M-$75M",
+          "fit": "good",
+          "fitScore": 76,
+          "reasoning": [
+            "PE-backed better-for-you brand built to grow — his exact play (took a national brand $90M→$180M)",
+            "Needs national mass and club scaling, which is the relationship set he brings",
+            "Margin discipline is what turns a fast-growing snack brand profitable"
+          ],
+          "contact": { "name": "", "role": "Chief Commercial Officer", "email": "sales@piedmontcandy.com", "emailType": "role", "emailStatus": "format_valid" }
+        }
       ]
     },
     {
