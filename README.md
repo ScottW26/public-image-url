@@ -78,6 +78,44 @@ or regenerating `per_candidate.json` never wipes where each person has got to.
   **Complete** (or hit *Mark placed*) to record which business they went into.
 - The metric strip reads the bench at a glance: on the shelf / in progress / placed.
 
+## Perfect-fit businesses (not job-chasing)
+
+The point isn't to chase vacancies — it's to find the **businesses where a
+candidate is the obvious answer** and spec them in with **clear reasoning why**,
+vacancy or not. Each candidate carries `targetBusinesses[]`:
+
+```jsonc
+{
+  "company": "Direct Source Seafood",
+  "domain": "directsourceseafood.com",
+  "location": "Bellevue, WA",
+  "sector": "Seafood import & wholesale",
+  "fit": "strong", "fitScore": 92,
+  "reasoning": ["...why this leader belongs in this business..."],
+  "contact": { "role": "President", "email": "sales@directsourceseafood.com", "emailStatus": "format_valid" }
+}
+```
+
+**Fit alone qualifies** a business — a why-now signal (if one exists) only sorts it
+higher, it never gates it out. The candidate page shows these as ranked cards with
+the reasoning and a one-click spec-out whose pitch writes itself from the reasoning.
+
+### Finding & verifying the contact email (Reoon)
+
+`verify_emails.js` turns a guessed contact into a deliverable one using the
+[Reoon Email Verifier](https://emailverifier.reoon.com):
+
+```bash
+REOON_API_KEY=xxxx node verify_emails.js bench.local.json
+```
+
+For each business it will, in order: (1) if it has the person's **name + domain**,
+try the common email patterns and keep the first Reoon confirms — *that's finding the
+hiring manager*; (2) otherwise verify the role mailbox that's there; (3) either way
+leave a **format-valid** address behind. Status badges in the app: `verified ✓` /
+`format ✓` / `risky` / `invalid`. Runs locally, writes only your gitignored bench
+file, and the key is never committed.
+
 ## The two views
 
 1. **Pipeline** — a kanban of the six stages; drag candidates along as they progress.

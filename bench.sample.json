@@ -129,6 +129,87 @@
         "Opened a US route-to-market from a Canadian base"
       ],
       "matches": []
+    },
+    {
+      "candidateId": "cand-2026-207",
+      "name": "CAND-2026-207",
+      "geography": "Oregon",
+      "primarySector": "Meat & Poultry",
+      "sectorTags": ["Seafood", "Protein", "Foodservice", "Broadline distribution", "Retail grocery", "Club"],
+      "seniority": "VP",
+      "status": "active",
+      "targetRoles": ["VP Sales", "VP Seafood / Protein Sales", "National Sales Director", "GM Seafood Division"],
+      "anchorSkills": ["National account leadership (Costco, Walmart, Whole Foods, Sprouts)", "Seafood category management", "Broadline distributor sales (Sysco, US Foods)", "Margin and pricing discipline", "Commodity sourcing"],
+      "scaleHandled": "$50M seafood category P&L with national retailers; VP-level seafood sales across multiple multi-region operators",
+      "anonRef": "Senior seafood/protein commercial executive with 30+ years leading national retail, club, and broadline distributor accounts including the largest US grocery and warehouse club operators",
+      "pitchHooks": [
+        "Led a $50M seafood category P&L with national retail accounts including the largest US grocery and warehouse clubs",
+        "Added three major retail accounts in six months generating $1.3M+ incremental annualised revenue",
+        "Re-engineered a freight lane, converting a $10K/week expense into revenue-generating backhaul"
+      ],
+      "matches": [],
+      "targetBusinesses": [
+        {
+          "company": "Direct Source Seafood",
+          "domain": "directsourceseafood.com",
+          "location": "Bellevue, WA",
+          "sector": "Seafood import & wholesale",
+          "revenueBand": "$25M-$200M",
+          "fit": "strong",
+          "fitScore": 92,
+          "reasoning": [
+            "Runs private-label programs for large and medium retailers + foodservice nationally — his exact national-account and club wheelhouse",
+            "Mid-market seafood wholesaler in the Pacific NW — his region and his weight class",
+            "He arrives with the Costco / Walmart / Whole Foods and Sysco / US Foods relationships to scale their retail programs"
+          ],
+          "contact": { "name": "", "role": "President / CEO", "email": "sales@directsourceseafood.com", "emailType": "role", "emailStatus": "format_valid" }
+        },
+        {
+          "company": "Home Port Seafoods",
+          "domain": "homeportseafoods.com",
+          "location": "Bellingham, WA",
+          "sector": "Seafood processing (retail + wholesale)",
+          "revenueBand": "$10M-$75M",
+          "fit": "good",
+          "fitScore": 84,
+          "reasoning": [
+            "Turnkey retail + wholesale processor that needs senior commercial leadership to convert custom processing into national branded volume",
+            "Pacific NW location keeps him close to home",
+            "His national grocery and club relationships are the growth lever they don't currently have"
+          ],
+          "contact": { "name": "", "role": "President", "email": "sales@homeportseafoods.com", "emailType": "role", "emailStatus": "format_valid" }
+        },
+        {
+          "company": "Oregon Lox Company",
+          "domain": "oregonlox.com",
+          "location": "Eugene, OR",
+          "sector": "Smoked salmon / value-add",
+          "revenueBand": "$5M-$50M",
+          "fit": "good",
+          "fitScore": 80,
+          "reasoning": [
+            "Medium value-add smoker right in his home state — geography is perfect",
+            "A branded value-add player that could ride his national grocery and club distribution into far wider reach",
+            "Margin and pricing discipline is exactly what scales a value-add seafood line"
+          ],
+          "contact": { "name": "", "role": "Owner / GM", "email": "info@oregonlox.com", "emailType": "role", "emailStatus": "format_valid" }
+        },
+        {
+          "company": "High Liner Foods",
+          "domain": "highlinerfoods.com",
+          "location": "Portsmouth, NH (US HQ)",
+          "sector": "Branded frozen seafood (grocery & club)",
+          "revenueBand": "$500M-$1B",
+          "fit": "stretch",
+          "fitScore": 78,
+          "reasoning": [
+            "Sells branded frozen seafood across national grocery and club — his exact channel",
+            "Larger, public step-up where his national-account leadership transfers directly",
+            "Commercial org (CCO / VP National Accounts) is the natural home for a national-account seafood leader"
+          ],
+          "contact": { "name": "", "role": "Chief Commercial Officer / VP National Accounts", "email": "careers@highlinerfoods.com", "emailType": "role", "emailStatus": "format_valid" }
+        }
+      ]
     }
   ]
 }

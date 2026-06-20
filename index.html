@@ -93,6 +93,29 @@
   .geo{font-size:10.5px;padding:1px 6px;border-radius:5px;background:var(--panel-2);color:var(--muted);border:1px solid var(--line)}
   .geo.in{color:var(--good)} .geo.border{color:var(--warm)}
 
+  /* perfect-fit businesses */
+  .biz{padding:13px 0;border-bottom:1px solid var(--line)}
+  .biz:last-child{border-bottom:none}
+  .biz .bh{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+  .biz .bn{font-weight:700;font-size:14px}
+  .biz .bm{color:var(--muted);font-size:11.5px;margin-top:2px}
+  .fitb{font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:6px;white-space:nowrap}
+  .fit-strong{background:rgba(56,193,114,.16);color:var(--good)}
+  .fit-good{background:rgba(79,157,255,.16);color:var(--accent)}
+  .fit-stretch{background:rgba(246,183,60,.16);color:var(--warm)}
+  .why{margin:9px 0 0;padding:0;list-style:none}
+  .why li{font-size:12px;line-height:1.5;padding-left:16px;position:relative;color:var(--text);opacity:.9;margin-bottom:4px}
+  .why li:before{content:"→";position:absolute;left:0;color:var(--accent)}
+  .contact{display:flex;align-items:center;gap:8px;margin-top:11px;flex-wrap:wrap}
+  .contact .crole{font-size:11.5px;color:var(--muted)}
+  .contact .em{font-size:12px;color:var(--text);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--panel-2);border:1px solid var(--line);padding:2px 7px;border-radius:6px}
+  .eb{font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px}
+  .eb-verified{background:rgba(56,193,114,.16);color:var(--good)}
+  .eb-format_valid{background:rgba(246,183,60,.14);color:var(--warm)}
+  .eb-unverified{background:var(--panel-2);color:var(--muted);border:1px solid var(--line)}
+  .eb-risky{background:rgba(246,183,60,.12);color:var(--warm)}
+  .eb-invalid{background:rgba(255,107,107,.16);color:var(--hot)}
+
   .so{display:flex;gap:11px;padding:11px 0;border-bottom:1px solid var(--line)}
   .so:last-child{border-bottom:none}
   .so .when{color:var(--muted);font-size:11.5px;width:62px;flex-shrink:0;padding-top:2px}
@@ -299,6 +322,20 @@ const SO_ORDER = ['sent','opened','interested','call','offer','placed','passed']
 /* heat = closeness to a spec-out opportunity */
 function heatClass(c){ const t=topMatch(c); if(t>=80)return'm-hot'; if(t>0)return'm-warm'; return'm-none'; }
 
+/* perfect-fit businesses are the primary target; live job matches are legacy fallback */
+function targetBiz(c){ return (c.targetBusinesses||[]).filter(b=>b && b.company); }
+function opps(c){
+  const b = targetBiz(c);
+  if(b.length){
+    const heat = b.some(x=>x.fit==='strong') ? 'm-hot' : 'm-warm';
+    return { n:b.length, label:'fit business', top:b[0].company, heat, badge: (b[0].fitScore? b[0].fitScore : 'fit') };
+  }
+  const m = matches(c);
+  return { n:m.length, label:'live target', top:(m[0]&&(m[0].company||m[0].title))||'', heat:heatClass(c), badge: topMatch(c)? topMatch(c)+'%' : '—' };
+}
+const EMAIL_LABEL = { verified:'verified ✓', format_valid:'format ✓', unverified:'unverified', risky:'risky', invalid:'invalid ✗' };
+function emailBadge(st){ const s = st||'unverified'; return `<span class="eb eb-${s}">${EMAIL_LABEL[s]||s}</span>`; }
+
 /* ---------- render ---------- */
 function render(){
   renderNav();
@@ -362,14 +399,14 @@ function pipelineView(cs){
     // within a column, hottest / most-recently-moved first
     inStage.sort((a,b)=> topMatch(b)-topMatch(a) || matches(b).length-matches(a).length);
     const cards = inStage.map(c=>{
-      const id=cid(c), t=topMatch(c), m=matches(c), parked=statusOf(c)==='parked';
+      const id=cid(c), parked=statusOf(c)==='parked', o=opps(c);
       const p=PROG[id]||{};
       return `<div class="kcard ${parked?'parked':''} ${st.key==='complete'?'done':''}" draggable="true"
           ondragstart="onDrag(event,'${id}')" onclick="openCandidate('${id}')">
         <div class="kn">${esc(c.name)}</div>
         <div class="kr">${esc(c.seniority||'')} · ${esc(c.primarySector||'')} · ${esc(c.geography||'')}</div>
         ${st.key==='complete' && p.company ? `<div class="placedco">→ ${esc(p.company)}</div>`
-          : `<div class="kf"><span class="matchbadge ${heatClass(c)}" style="font-size:12px">${t?t+'%':'—'}</span><span>${m.length} target${m.length!==1?'s':''}${parked?' · parked':''}</span></div>`}
+          : `<div class="kf"><span class="matchbadge ${o.heat}" style="font-size:12px">${esc(String(o.badge))}</span><span>${o.n} ${o.label}${o.n!==1?'s':''}${parked?' · parked':''}</span></div>`}
       </div>`;
     }).join('');
     return `<div class="col" data-stage="${st.key}" ondragover="onOver(event)" ondragleave="onLeave(event)" ondrop="onDrop(event,'${st.key}')">
@@ -386,7 +423,7 @@ function listView(cs){
   const SEN = {'C-suite':6,'SVP':5,'VP':4,'Director':3,'Senior Manager':2,'Manager':1};
   cs = [...cs].sort((a,b)=> STAGE_IDX[stageOf(b)]-STAGE_IDX[stageOf(a)] || topMatch(b)-topMatch(a) || (SEN[b.seniority]||0)-(SEN[a.seniority]||0));
   const cards = cs.map(c=>{
-    const id=cid(c), m=matches(c), t=topMatch(c), st=STAGE[stageOf(c)];
+    const id=cid(c), st=STAGE[stageOf(c)], o=opps(c);
     return `<div class="card" onclick="openCandidate('${id}')">
       <div class="top">
         <div><div class="name">${esc(c.name)}</div><div class="role">${esc(c.seniority||'')} · ${esc(c.primarySector||'')} · ${esc(c.geography||'')}</div></div>
@@ -394,8 +431,8 @@ function listView(cs){
       </div>
       <div class="ref">${esc(c.anonRef||'No anon profile yet.')}</div>
       <div class="foot">
-        <span class="matchbadge ${heatClass(c)}">${t?t+'%':'—'}</span>
-        <span><b>${m.length}</b> live target${m.length!==1?'s':''}${m.length?` · top: ${esc(m[0].company||m[0].title||'')}`:''}</span>
+        <span class="matchbadge ${o.heat}">${esc(String(o.badge))}</span>
+        <span><b>${o.n}</b> ${o.label}${o.n!==1?'s':''}${o.n?` · top: ${esc(o.top)}`:''}</span>
       </div>
     </div>`;
   }).join('');
@@ -434,9 +471,28 @@ function candidateView(id){
     ${(c.pitchHooks||[]).length?`<div style="margin-top:14px"><div class="hint" style="margin:0 0 6px">Pitch hooks</div><ul class="hooks">${c.pitchHooks.map(h=>`<li>${esc(h)}</li>`).join('')}</ul></div>`:''}
   </div>`;
 
-  const engine = `<div class="panel">
-    <h3>Spec-out engine <span style="color:var(--muted);font-weight:400;font-size:13px">· ${m.length} live target${m.length!==1?'s':''}</span></h3>
-    <p class="hint">Open roles your engine matched to this candidate. Each one is a spec-out waiting to happen.</p>
+  const biz = targetBiz(c);
+  const engine = biz.length ? `<div class="panel">
+    <h3>Perfect-fit businesses <span style="color:var(--muted);font-weight:400;font-size:13px">· ${biz.length}</span></h3>
+    <p class="hint">Businesses where this candidate is the obvious answer — fit alone, no vacancy needed. Send them in with the reasoning.</p>
+    ${biz.map((b,i)=>{
+      const c2 = b.contact||{};
+      const specced = sentTo.has('biz:'+b.company);
+      return `<div class="biz">
+        <div class="bh">
+          <div><div class="bn">${esc(b.company)}</div><div class="bm">${esc(b.location||'')} · ${esc(b.sector||'')}${b.revenueBand?' · '+esc(b.revenueBand):''}</div></div>
+          <span class="fitb fit-${esc(b.fit||'good')}">${esc((b.fit||'good').toUpperCase())}${b.fitScore?' · '+b.fitScore:''}</span>
+        </div>
+        <ul class="why">${(b.reasoning||[]).map(r=>`<li>${esc(r)}</li>`).join('')}</ul>
+        <div class="contact">
+          ${c2.email?`<span class="crole">${esc(c2.name||c2.role||'Contact')}</span><span class="em">${esc(c2.email)}</span>${emailBadge(c2.emailStatus)}`:'<span class="crole">No contact yet — run the email finder</span>'}
+          ${specced?'<span class="eb eb-verified" style="margin-left:auto">specced ✓</span>':`<button class="btn sm" style="margin-left:auto" onclick="openSpecoutBiz('${id}',${i})">Spec out →</button>`}
+        </div>
+      </div>`;
+    }).join('')}
+  </div>` : `<div class="panel">
+    <h3>Perfect-fit businesses</h3>
+    <p class="hint">No fit businesses sourced yet for this candidate.${m.length?' (Legacy job matches shown below.)':''} Run the business finder to populate them.</p>
     ${m.length? m.map((t,i)=>`
       <div class="target">
         <div class="tinfo">
@@ -445,8 +501,7 @@ function candidateView(id){
         </div>
         <span class="matchbadge ${ (t.pct||0)>=80?'m-hot':'m-warm'}">${t.pct||'?'}%</span>
         ${sentTo.has(targetKey(t))?'<span class="geo in" style="white-space:nowrap">specced ✓</span>':`<button class="btn sm" onclick="openSpecout('${id}',${i})">Spec out →</button>`}
-      </div>`).join('')
-      : `<div class="hint">No live targets from the engine yet. ${SOURCE==='sample'?'(Load your bench to see real matches.)':'They’ll appear here on the next engine run.'}</div>`}
+      </div>`).join('') : ''}
   </div>`;
 
   const timeline = `<div class="panel" style="margin-top:18px">
@@ -559,6 +614,47 @@ function logSpecout(id, idx){
   const c = cand(id); const t = matches(c)[idx];
   SPECOUTS.push({ id:'s'+Math.random().toString(36).slice(2,8), candidateId:id, target:targetKey(t),
     targetLabel:`${t.title||''} · ${t.company||''}`, date:todayISO, status:'sent', note:document.getElementById('m_note').value.trim() });
+  saveSpecouts(); syncStageFromOuts(id); closeModal(); render();
+}
+
+/* spec-out to a perfect-fit business */
+function openSpecoutBiz(id, idx){
+  const c = cand(id); const b = targetBiz(c)[idx]; const ct = b.contact||{};
+  modal(`<h3>Spec out — ${esc(c.name)} → ${esc(b.company)}</h3>
+    <p class="hint" style="margin:-4px 0 10px">Fit-led, not a CV drop. The pitch is built from the reasoning-why. ${ct.email?`Sending to <b>${esc(ct.email)}</b> ${emailBadge(ct.emailStatus)}`:'No verified contact yet — run the email finder.'}</p>
+    <div class="pitchbox" id="pitchbox">${esc(pitchBiz(c,b))}</div>
+    <div class="anonnote">⚠ <span>Outbound copy uses the <b>anon spec</b> only — no name, no current employer. Identity stays in your decoder.</span></div>
+    <label class="f" style="margin-top:12px"><span>Note (optional)</span><input id="m_note" placeholder="e.g. sent to President via verified email"></label>
+    <div class="modal-actions">
+      <button class="btn ghost" onclick="copyPitch()">Copy</button>
+      <button class="btn" onclick="logSpecoutBiz('${id}',${idx})">Log spec-out</button>
+    </div>`);
+}
+function pitchBiz(c, b){
+  const role = (c.targetRoles||[])[0] || c.seniority || 'senior leader';
+  const ct = b.contact||{};
+  const who = ct.name ? ct.name.split(' ')[0] : 'there';
+  const why = (b.reasoning||[]).slice(0,3).map(r=>'• '+r).join('\n');
+  return `Subject: A ${role} built for ${b.company}
+
+Hi ${who},
+
+I look after a small bench of ${c.primarySector||''} leaders, and one of them is a near-perfect fit for ${b.company} specifically — this isn't a generic CV drop:
+
+${why}
+
+${c.anonRef||''}
+
+No need for a live vacancy — a leader like this creates their own return. Worth a short, confidential call this week? Happy to share the full anonymised profile.
+
+Best,
+Scott
+Williams Recruitment`;
+}
+function logSpecoutBiz(id, idx){
+  const c = cand(id); const b = targetBiz(c)[idx];
+  SPECOUTS.push({ id:'s'+Math.random().toString(36).slice(2,8), candidateId:id, target:'biz:'+b.company,
+    targetLabel:`${b.company}${b.contact&&b.contact.email?' · '+b.contact.email:''}`, date:todayISO, status:'sent', note:document.getElementById('m_note').value.trim() });
   saveSpecouts(); syncStageFromOuts(id); closeModal(); render();
 }
 function openAdvance(sid){

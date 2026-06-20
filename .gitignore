@@ -5,3 +5,8 @@ bench.local.json
 per_candidate.json
 **/wr-decoder*
 *.decoder.*
+
+# Secrets — never commit the Reoon key or any env file
+.env
+.env.*
+*.key
