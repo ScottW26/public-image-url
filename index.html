@@ -187,6 +187,7 @@
   <nav id="nav"></nav>
   <div class="spacer"></div>
   <div class="src" id="srcBadge"><span class="dot"></span><span id="srcText">sample</span></div>
+  <button class="btn ghost sm" onclick="openKeyModal()" title="Reoon email verification key">🔑 Key</button>
   <button class="btn ghost sm" onclick="refresh()" title="Re-read your local bench file">↻ Refresh</button>
   <button class="btn ghost sm" onclick="document.getElementById('benchFile').click()">Load my bench</button>
   <input type="file" id="benchFile" accept="application/json" style="display:none" onchange="importBench(event)">
@@ -209,6 +210,8 @@
 const LS_BENCH = 'shelf.bench.v1';     // your real bench (local only)
 const LS_OUT   = 'shelf.specouts.v1';  // spec-out log (local only)
 const LS_PROG  = 'shelf.progress.v1';  // per-candidate stage (local only, survives refresh)
+const LS_KEY   = 'shelf.reoon.key';    // Reoon API key (this browser only, never committed)
+const LS_EMAIL = 'shelf.emailv.v1';    // verification results, keyed by email address
 const todayISO = '2026-06-19';
 
 /* Every candidate is a project moving off the shelf and into a business.
@@ -335,6 +338,55 @@ function opps(c){
 }
 const EMAIL_LABEL = { verified:'verified ✓', format_valid:'format ✓', unverified:'unverified', risky:'risky', invalid:'invalid ✗' };
 function emailBadge(st){ const s = st||'unverified'; return `<span class="eb eb-${s}">${EMAIL_LABEL[s]||s}</span>`; }
+
+/* ---------- Reoon email verification (key stored locally, verify via local proxy) ---------- */
+let EMAILV = (function(){ try{ return JSON.parse(localStorage.getItem(LS_EMAIL))||{} }catch(e){ return {} } })();
+function getKey(){ return localStorage.getItem(LS_KEY)||''; }
+function setKey(k){ if(k) localStorage.setItem(LS_KEY,k); else localStorage.removeItem(LS_KEY); }
+function statusFor(email, fallback){ return (email && EMAILV[email]) || fallback || 'unverified'; }
+
+function openKeyModal(){
+  modal(`<h3>Reoon email verification</h3>
+    <p class="hint" style="margin:-4px 0 12px">Paste your Reoon API key. It's stored only in <b>this browser</b> and sent only to your local server to check emails — never uploaded, never committed.</p>
+    <label class="f"><span>Reoon API key</span><input id="m_key" value="${attr(getKey())}" placeholder="paste your Reoon key here"></label>
+    <div class="modal-actions">
+      <button class="btn ghost" onclick="closeModal()">Close</button>
+      <button class="btn ghost" onclick="saveKeyOnly()">Save key</button>
+      <button class="btn" onclick="saveKeyAndVerify()">Save &amp; verify all</button>
+    </div>
+    <p class="hint" style="margin-top:12px">Get a key at <b>emailverifier.reoon.com</b>. In-app verify needs the bundled Node server (<code>start.command</code> uses it automatically when Node is installed).</p>`);
+}
+function saveKeyOnly(){ setKey(document.getElementById('m_key').value.trim()); closeModal(); }
+function saveKeyAndVerify(){ setKey(document.getElementById('m_key').value.trim()); closeModal(); verifyEmails(null); }
+
+async function verifyEmails(ids){
+  const key = getKey();
+  if(!key){ openKeyModal(); return; }
+  const emails = [];
+  for(const c of (BENCH.candidates||[])){
+    if(ids && !ids.includes(cid(c))) continue;
+    for(const b of targetBiz(c)){ if(b.contact && b.contact.email) emails.push(b.contact.email); }
+  }
+  const uniq = [...new Set(emails)];
+  if(!uniq.length){ alert('No business contact emails to verify yet.'); return; }
+  let ok=0, fail=0;
+  setSrcText(`verifying 0/${uniq.length}…`);
+  for(let i=0;i<uniq.length;i++){
+    const email = uniq[i];
+    try{
+      const r = await fetch(`/__verify?email=${encodeURIComponent(email)}&key=${encodeURIComponent(key)}`);
+      if(!r.ok) throw new Error('proxy '+r.status);
+      const j = await r.json();
+      EMAILV[email] = j.emailStatus || 'risky'; ok++;
+    }catch(e){ fail++; }
+    setSrcText(`verifying ${i+1}/${uniq.length}…`);
+  }
+  localStorage.setItem(LS_EMAIL, JSON.stringify(EMAILV));
+  updateSrc(); render();
+  if(ok===0 && fail>0){ alert('Couldn\'t reach the local verifier.\n\nIn-app verify needs the Node server — relaunch with start.command (Node installed), or run:\n  REOON_API_KEY=yourkey node verify_emails.js bench.local.json'); }
+  else if(fail){ alert(`Verified ${ok}, ${fail} couldn\'t be checked.`); }
+}
+function setSrcText(t){ const el=document.getElementById('srcText'); if(el) el.textContent=t; }
 
 /* ---------- render ---------- */
 function render(){
@@ -472,9 +524,13 @@ function candidateView(id){
   </div>`;
 
   const biz = targetBiz(c);
+  const hasEmails = biz.some(b=>b.contact && b.contact.email);
   const engine = biz.length ? `<div class="panel">
-    <h3>Perfect-fit businesses <span style="color:var(--muted);font-weight:400;font-size:13px">· ${biz.length}</span></h3>
-    <p class="hint">Businesses where this candidate is the obvious answer — fit alone, no vacancy needed. Send them in with the reasoning.</p>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+      <h3 style="margin:0">Perfect-fit businesses <span style="color:var(--muted);font-weight:400;font-size:13px">· ${biz.length}</span></h3>
+      ${hasEmails?`<button class="btn sm ghost" onclick="verifyEmails(['${id}'])" title="Check these emails with Reoon">Verify emails</button>`:''}
+    </div>
+    <p class="hint" style="margin-top:6px">Businesses where this candidate is the obvious answer — fit alone, no vacancy needed. Send them in with the reasoning.</p>
     ${biz.map((b,i)=>{
       const c2 = b.contact||{};
       const specced = sentTo.has('biz:'+b.company);
@@ -485,7 +541,7 @@ function candidateView(id){
         </div>
         <ul class="why">${(b.reasoning||[]).map(r=>`<li>${esc(r)}</li>`).join('')}</ul>
         <div class="contact">
-          ${c2.email?`<span class="crole">${esc(c2.name||c2.role||'Contact')}</span><span class="em">${esc(c2.email)}</span>${emailBadge(c2.emailStatus)}`:'<span class="crole">No contact yet — run the email finder</span>'}
+          ${c2.email?`<span class="crole">${esc(c2.name||c2.role||'Contact')}</span><span class="em">${esc(c2.email)}</span>${emailBadge(statusFor(c2.email,c2.emailStatus))}`:'<span class="crole">No contact yet — run the email finder</span>'}
           ${specced?'<span class="eb eb-verified" style="margin-left:auto">specced ✓</span>':`<button class="btn sm" style="margin-left:auto" onclick="openSpecoutBiz('${id}',${i})">Spec out →</button>`}
         </div>
       </div>`;
@@ -621,7 +677,7 @@ function logSpecout(id, idx){
 function openSpecoutBiz(id, idx){
   const c = cand(id); const b = targetBiz(c)[idx]; const ct = b.contact||{};
   modal(`<h3>Spec out — ${esc(c.name)} → ${esc(b.company)}</h3>
-    <p class="hint" style="margin:-4px 0 10px">Fit-led, not a CV drop. The pitch is built from the reasoning-why. ${ct.email?`Sending to <b>${esc(ct.email)}</b> ${emailBadge(ct.emailStatus)}`:'No verified contact yet — run the email finder.'}</p>
+    <p class="hint" style="margin:-4px 0 10px">Fit-led, not a CV drop. The pitch is built from the reasoning-why. ${ct.email?`Sending to <b>${esc(ct.email)}</b> ${emailBadge(statusFor(ct.email,ct.emailStatus))}`:'No verified contact yet — run the email finder.'}</p>
     <div class="pitchbox" id="pitchbox">${esc(pitchBiz(c,b))}</div>
     <div class="anonnote">⚠ <span>Outbound copy uses the <b>anon spec</b> only — no name, no current employer. Identity stays in your decoder.</span></div>
     <label class="f" style="margin-top:12px"><span>Note (optional)</span><input id="m_note" placeholder="e.g. sent to President via verified email"></label>
