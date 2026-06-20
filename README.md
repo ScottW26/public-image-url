@@ -62,13 +62,33 @@ This repo is **public**, so it contains **no real candidate data**, ever.
 | `matches[]` | **Live targets** — open roles your engine matched. Each is a spec-out waiting to happen |
 | `primarySector`, `geography`, `seniority`, `status` | Board sorting + filters |
 
-## The two screens
+## Every candidate is a project
 
-1. **The Bench** — your candidates as products, ranked by who's *closest to a
-   spec-out* (best live match first). Filter by sector / status, search anything.
-2. **Candidate** — the spec sheet (anon spec + pitch hooks + anchors) next to the
-   **spec-out engine** (the live matched roles) and a **spec-out log** that tracks
-   each pitch: sent → opened → interested → call → placed.
+The whole system is a pipeline for getting candidates **off the shelf and into a
+business**. Each candidate is a project that moves through:
+
+`On the shelf → Specced out → In play → Interviewing → Offer → Complete`
+
+**Complete = placement.** Progress is tracked locally and **survives every refresh**
+of the bench file (it's stored separately from the candidate data), so re-importing
+or regenerating `per_candidate.json` never wipes where each person has got to.
+
+- Logging/advancing a spec-out **auto-advances** the candidate's stage.
+- In **Pipeline** view you can **drag a candidate** along the stages; drop them in
+  **Complete** (or hit *Mark placed*) to record which business they went into.
+- The metric strip reads the bench at a glance: on the shelf / in progress / placed.
+
+## The two views
+
+1. **Pipeline** — a kanban of the six stages; drag candidates along as they progress.
+2. **List** — every candidate-project, furthest-along first, with its stage and
+   live-match heat. Click any candidate for the detail page:
+   - the spec sheet (anon spec + pitch hooks + anchors),
+   - the **spec-out engine** (live matched roles), a **progress stepper**, and a
+     **spec-out log** tracking each pitch (sent → … → offer → placed).
+
+Hit **↻ Refresh** any time to re-read your local bench file — new matches appear,
+your progress stays put.
 
 ## Where this goes next
 
